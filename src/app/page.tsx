@@ -1,5 +1,7 @@
-import Image from 'next/image'
-
 export default function Home() {
-  return <main>첫 페이지 로그인</main>
+  return (
+    <div>
+      <h1>첫 페이지 로그인</h1>
+    </div>
+  )
 }
