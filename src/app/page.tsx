@@ -1,7 +1,12 @@
+import MainLogin from '@/components/loginComponents/mainLogin'
+import Container from '@/utils/container'
+
 export default function Home() {
   return (
-    <div>
-      <h1>첫 페이지 로그인</h1>
-    </div>
+    <main className='flex h-screen w-full items-center justify-center'>
+      <Container>
+        <MainLogin />
+      </Container>
+    </main>
   )
 }
