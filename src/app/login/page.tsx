@@ -3,10 +3,8 @@ import Container from '@/app/utils/container'
 
 export default function Login() {
   return (
-    <main className='h-full w-full'>
-      <Container>
-        <MainLogin />
-      </Container>
+    <main className='flex h-screen w-full items-center justify-center'>
+      <MainLogin />
     </main>
   )
 }
