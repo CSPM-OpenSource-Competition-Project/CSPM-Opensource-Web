@@ -25,7 +25,7 @@ const signUpField: signUpFeild = {
   password: '',
   accessKey: '',
   secretKey: '',
-  regin: '',
+  regin: 'ap-northeast-2',
 }
 
 export const useSingUpFeild = create<signUpFeild & setSignUpFeild>((set) => ({
