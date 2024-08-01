@@ -8,7 +8,7 @@ import { useState } from 'react'
 
 export default function AWSField() {
   const [state, setState] = useState(0)
-  const { setAccessKey, setSecretKey, setRegin } = useSingUpFeild()
+  const { setAccessKey, setSecretKey, setRegin, regin } = useSingUpFeild()
   return (
     <>
       <label className='text-xl'>AWS 대표 IAM</label>
@@ -28,7 +28,7 @@ export default function AWSField() {
       />
 
       <div className='flex gap-4'>
-        <ReginSelect setRegin={setRegin} />
+        <ReginSelect setRegin={setRegin} regin={regin} />
         <button className='h-12 w-14 rounded-md bg-blue-900 text-white'>검증</button>
       </div>
       <p>
