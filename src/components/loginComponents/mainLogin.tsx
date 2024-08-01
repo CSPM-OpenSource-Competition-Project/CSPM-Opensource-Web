@@ -15,7 +15,7 @@ export default function MainLogin() {
   return (
     <div>
       <Logo />
-      <form onSubmit={handleSubmit} className='flex-col items-center justify-center'>
+      <form onSubmit={handleSubmit} className='mt-6 flex-col items-center justify-center'>
         <div className='flex flex-col items-center justify-center'>
           <EmailInput />
           <PasswordInput />
