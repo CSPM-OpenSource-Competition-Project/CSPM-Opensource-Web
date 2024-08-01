@@ -1,47 +1,32 @@
+'use client'
+
+import InputLayout from '@/components/input/inputLayout'
+import ReginSelect from '@/components/select/reginSelect'
+
+import { useSingUpFeild } from '@/stores/useSignUpStore'
+
 export default function AWSField() {
+  const { setAccessKey, setSecretKey, setRegin } = useSingUpFeild()
   return (
     <>
       <label className='text-xl'>AWS 대표 IAM</label>
-      <input
-        type='text'
-        name='set_text'
-        className='h-12 w-[300px] rounded-md border border-black px-1'
-        placeholder='AccessKey 입력'
-      ></input>
-      <input
-        type='text'
-        name='set_text'
-        className='h-12 w-[300px] rounded-md border border-black px-1'
-        placeholder='SecretKey 입력'
-      ></input>
+      <InputLayout
+        setValue={setAccessKey}
+        setType={'text'}
+        setName={'set_text'}
+        setPlaceholder={'AccessKey 입력'}
+        setCSS={'rounded-md'}
+      />
+      <InputLayout
+        setValue={setSecretKey}
+        setType={'text'}
+        setName={'set_text'}
+        setPlaceholder={'SecretKey 입력'}
+        setCSS={'rounded-md'}
+      />
+
       <div className='flex gap-4'>
-        <select className='h-12 w-[300px] rounded-md border border-black px-1'>
-          <option value='us-east-1'>us-east-1</option>
-          <option value='us-east-2'>us-east-2</option>
-          <option value='us-west-1' selected>
-            us-west-1
-          </option>
-          <option value='us-west-2'>us-west-2</option>
-          <option value='sa-east-1'>sa-east-1</option>
-          <option value='ca-central-1'>ca-central-1</option>
-          <option value='eu-west-1'>eu-west-1</option>
-          <option value='eu-west-2'>eu-west-2</option>
-          <option value='eu-west-3'>eu-west-3</option>
-          <option value='eu-central-1'>eu-central-1</option>
-          <option value='eu-north-1'>eu-north-1</option>
-          <option value='me-south-1'>me-south-1</option>
-          <option value='me-central-1'>me-central-1</option>
-          <option value='af-south-1'>af-south-1</option>
-          <option value='ap-northeast-1'>ap-northeast-1</option>
-          <option value='ap-northeast-2' selected>
-            ap-northeast-2
-          </option>
-          <option value='ap-northeast-3'>ap-northeast-3</option>
-          <option value='ap-southeast-1'>ap-southeast-1</option>
-          <option value='ap-southeast-2'>ap-southeast-2</option>
-          <option value='ap-south-1'>ap-south-1</option>
-          <option value='ap-southeast-3'>ap-southeast-3</option>
-        </select>
+        <ReginSelect setRegin={setRegin} />
         <button className='h-12 w-14 rounded-md bg-blue-900 text-white'>검증</button>
       </div>
       <span>사용 가능 합니다.</span>
