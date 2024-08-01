@@ -8,7 +8,7 @@ export default function ReginSelect({ setRegin }: Props) {
   }
   return (
     <>
-      <select className='h-12 w-[300px] rounded-md border border-black px-1' onChange={handler}>
+      <select className='h-12 w-[300px] rounded-md border border-gray-400 px-1' onChange={handler}>
         <option value='us-east-1'>us-east-1</option>
         <option value='us-east-2'>us-east-2</option>
         <option value='us-west-1' selected>

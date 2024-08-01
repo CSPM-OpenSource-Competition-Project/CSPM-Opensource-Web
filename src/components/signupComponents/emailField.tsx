@@ -2,8 +2,10 @@
 
 import InputLayout from '@/components/input/inputLayout'
 import { useSingUpFeild } from '@/stores/useSignUpStore'
+import { useState } from 'react'
 
 export default function EmailField() {
+  const [state, setState] = useState(0)
   const { email, setEmail, setEmailVaildator } = useSingUpFeild()
 
   return (
@@ -30,8 +32,10 @@ export default function EmailField() {
 
         <button className='h-12 w-14 rounded-md bg-blue-900 text-white'>확인</button>
       </div>
-      <span>사용 가능 합니다.</span>
-      <span>사용할 수 없습니다.</span>
+      <p>
+        <span className={`${state === 1 ? '' : 'hidden'}`}>사용 가능 합니다.</span>
+        <span className={`${state === 2 ? '' : 'hidden'} text-red-500`}>사용할 수 없습니다.</span>
+      </p>
     </>
   )
 }
