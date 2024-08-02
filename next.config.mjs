@@ -1,27 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ['@svgr/webpack'],
-    })
-
-    return config
-  },
-  images: {
-    remotePatterns: [
+  async rewrites() {
+    return [
       {
-        protocol: 'https',
-        hostname: 'a0.muscache.com',
-        pathname: '**',
+        source: '/:path*',
+        destination: 'http://localhost8080/:path*',
       },
-      {
-        protocol: 'https',
-        hostname: 'www.ghibli.jp',
-        pathname: '**',
-      },
-    ],
+    ]
   },
 }
 
+export default nextConfig
 export default nextConfig
