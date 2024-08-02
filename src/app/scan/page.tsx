@@ -6,6 +6,8 @@ import StartScanButton from '@/app/components/scanbuttons/startScanButton'
 import ResourceButton from '@/app/components/scanbuttons/resourceButton'
 import ServiceButton from '@/app/components/scanbuttons/serviceButton'
 
+import ScanList from '@/app/components/scanList/scanList'
+
 export default function Scan() {
   return (
     <main className='relative flex h-full min-h-screen w-full flex-col items-center justify-start p-4'>
@@ -26,23 +28,25 @@ export default function Scan() {
           <div className='inline-block min-w-full py-2 sm:px-6 lg:px-8'>
             {/* 테이블 */}
             <div className='absolute -left-16 top-96 overflow-x-auto'>
-              <table className='w-[1000px] border-4 text-left text-sm font-light'>
-                <thead className='border-b bg-gray-100 font-medium'>
-                  <tr>
-                    <th scope='col'>스캔 시간</th>
-                    <th scope='col'>AccountID</th>
-                    <th scope='col'>리소스</th>
-                    <th scope='col'>리소스ID</th>
-                    <th scope='col'>Service</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    {/* for문으로 찾은 값을 돌리는 식으로 진행. */}
-                    <td>값 넣기</td>
-                  </tr>
-                </tbody>
-              </table>
+              {/* <table className='w-[1000px] border-4 text-left text-sm font-light'> */}
+              {/* <thead className='border-b bg-gray-100 font-medium'> */}
+              {/* <tr> */}
+              {/* <th scope='col'>스캔 시간</th> */}
+              {/* <th scope='col'>AccountID</th> */}
+              {/* <th scope='col'>리소스</th> */}
+              {/* <th scope='col'>리소스ID</th> */}
+              {/* <th scope='col'>Service</th> */}
+              {/* </tr> */}
+              {/* </thead> */}
+              {/* <tbody> */}
+              {/* <tr> */}
+              {/* for문으로 찾은 값을 돌리는 식으로 진행. */}
+              {/* <td>값 넣기</td> */}
+              {/* </tr> */}
+              {/* </tbody> */}
+              {/* </table> */}
+
+              {/* <ScanList items={items} /> */}
             </div>
           </div>
         </div>
