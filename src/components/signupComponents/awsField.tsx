@@ -31,7 +31,7 @@ export default function AWSField() {
         <ReginSelect setRegin={setRegin} regin={regin} />
         <button className='h-12 w-14 rounded-md bg-blue-900 text-white'>검증</button>
       </div>
-      <p>
+      <p className='h-8'>
         <span className={`${state === 1 ? '' : 'hidden'}`}>사용 가능 합니다.</span>
         <span className={`${state === 2 ? '' : 'hidden'} text-red-500`}>
           권한 문제 : AWS IAM 권한을 넣어주세요
