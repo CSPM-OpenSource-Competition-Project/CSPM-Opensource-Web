@@ -32,8 +32,8 @@ export default function EmailField() {
 
         <button className='h-12 w-14 rounded-md bg-blue-900 text-white'>확인</button>
       </div>
-      <p>
-        <span className={`${state === 1 ? '' : 'hidden'}`}>사용 가능 합니다.</span>
+      <p className='h-8'>
+        <span className={`${state === 1 ? '' : 'hidden'} `}>사용 가능 합니다.</span>
         <span className={`${state === 2 ? '' : 'hidden'} text-red-500`}>사용할 수 없습니다.</span>
       </p>
     </>

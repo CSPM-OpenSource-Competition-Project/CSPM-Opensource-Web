@@ -18,12 +18,13 @@ export default function SignupComponent() {
         <aside className='flex flex-col gap-2'>
           <EmailField />
         </aside>
-        <aside className='mt-6 flex flex-col gap-2'>
+        <aside className='flex flex-col gap-2'>
           <PasswordField />
         </aside>
-        <aside className='mt-6 flex flex-col gap-2'>
+        <aside className='mt-8 flex flex-col gap-2'>
           <AWSField />
         </aside>
+
         <SignupButton />
       </form>
     </main>
