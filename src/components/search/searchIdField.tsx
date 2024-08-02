@@ -6,12 +6,15 @@ import { useState } from 'react'
 
 export default function SearchIdField() {
   const [accessKey, setAccessKey] = useState('')
-  const [state, setState] = useState(0)
+  const [state, setState] = useState(1)
+
+  const id = 'wjd15sheep@naver.com'
   return (
     <main>
       <Logo />
       <form>
-        <span className='mt-6 text-xl'>AccessKey 입력</span>
+        <h1 className='mt-6 text-2xl'>아이디 찾기</h1>
+        <span className='mt-10 text-lg'>AccessKey 입력</span>
 
         <div className='flex gap-4'>
           <InputLayout
@@ -30,8 +33,10 @@ export default function SearchIdField() {
         </div>
 
         <p className='h-8'>
-          <span className={`${state === 1 ? '' : 'hidden'}`}>아이디는 ~~ 입니다.</span>
-          <span className={`${state === 2 ? '' : 'hidden'}`}>가입한 이력이 없습니다.</span>
+          <span className={`${state === 1 ? '' : 'hidden'} text-bold`}>아이디는 {id} 입니다.</span>
+          <span className={`${state === 2 ? '' : 'hidden'} font-bold text-red-500`}>
+            가입한 이력이 없습니다.
+          </span>
         </p>
       </form>
       <ToLoginButton />

@@ -1,4 +1,4 @@
-import SearchIdField from '@/components/search/searchId'
+import SearchIdField from '@/components/search/searchIdField'
 import Container from '@/utils/container'
 
 export default function SearchID() {
