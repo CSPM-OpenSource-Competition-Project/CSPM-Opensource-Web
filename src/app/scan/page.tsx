@@ -6,8 +6,6 @@ import StartScanButton from '@/app/components/scanbuttons/startScanButton'
 import ResourceButton from '@/app/components/scanbuttons/resourceButton'
 import ServiceButton from '@/app/components/scanbuttons/serviceButton'
 
-import ScanList from '@/app/components/scanList/scanList'
-
 export default function Scan() {
   return (
     <main className='relative flex h-full min-h-screen w-full flex-col items-center justify-start p-4'>
