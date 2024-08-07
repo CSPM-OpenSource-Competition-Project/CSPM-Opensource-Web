@@ -12,12 +12,11 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <div className='grid h-screen w-full grid-cols-[200px_1fr] grid-rows-[auto_1fr_auto]'>
-          <header className='h-12 w-full'>
-            <Header />
-          </header>
-
-          <main className='flex space-x-10 whitespace-nowrap text-2xl'>
+        <div className='w-full'>
+          <Header />
+        </div>
+        <div className='grid h-screen w-full'>
+          <main className='flex -space-y-28 space-x-60 whitespace-nowrap text-2xl'>
             <div>
               <SideBar />
             </div>
