@@ -25,9 +25,9 @@ const initialSelect: selectState = {
 export const useSelectType = create<selectState & selectAction>((set) => ({
   ...initialSelect,
   setIAMSelected: (selectIAM) => set((state) => ({ iAMSelected: selectIAM })),
-  setGroupSelected: (selectIAM) => set((state) => ({ iAMSelected: selectIAM })),
-  setResourceSelected: (selectIAM) => set((state) => ({ iAMSelected: selectIAM })),
-  setServiceSelected: (selectIAM) => set((state) => ({ iAMSelected: selectIAM })),
+  setGroupSelected: (selectGroup) => set((state) => ({ groupSelected: selectGroup })),
+  setResourceSelected: (selectResource) => set((state) => ({ resourceSelected: selectResource })),
+  setServiceSelected: (selectService) => set((state) => ({ serviceSelected: selectService })),
 }))
 
 type filterStore = {
