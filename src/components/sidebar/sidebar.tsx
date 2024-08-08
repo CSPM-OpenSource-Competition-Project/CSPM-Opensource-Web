@@ -1,6 +1,6 @@
 export default function SideBar() {
   return (
-    <div className='h-auto w-[200px] bg-[#eef2f8] p-4 text-[#202020] transition-all ease-in-out'>
+    <div className='fixed h-full w-[200px] bg-[#eef2f8] p-4 text-[#202020]'>
       <span className='flex text-xl text-slate-700'>
         스캔 <hr className='w-40 align-middle' />
       </span>

@@ -19,9 +19,9 @@ export default function SelectIAMBox() {
   }
 
   return (
-    <div className='col-span-1 mt-8 h-10 w-[60%] items-center border-2 bg-white text-black'>
+    <div className='mt-8 h-10 w-[60%] items-center border-2 bg-white text-black'>
       <Select value={iAMSelected} onValueChange={handleIAMChange}>
-        <SelectTrigger className='h-full w-[100%]'>
+        <SelectTrigger>
           <SelectValue placeholder='IAM 선택' />
         </SelectTrigger>
         <SelectContent>

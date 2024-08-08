@@ -63,9 +63,9 @@ export default function SelectResourceBox() {
    * ex) VPC 선택하면 리소스는 그와 관련된 VPC, 라우팅테이블, InternetGateWay, 서브넷, 보안 그룹이 나옴
    */
   return (
-    <div className='col-span-1 mt-8 h-10 w-[75%] items-center border-2 bg-white text-black'>
+    <div className='mt-8 h-10 w-[60%] items-center border-2 bg-white text-black'>
       <Select value={resourceSelected} onValueChange={handleResourceChange}>
-        <SelectTrigger className='h-full w-[100%]'>
+        <SelectTrigger>
           <SelectValue placeholder='Resource 선택' />
         </SelectTrigger>
         <SelectContent>
