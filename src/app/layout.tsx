@@ -17,18 +17,10 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <div className='grid h-screen w-full'>
-          <div className='flex space-x-10 whitespace-nowrap px-10 text-2xl sm:space-x-20 sm:px-20'>
-            {children}
-          </div>
+        <div className='h-full w-full bg-[#eef2f8]'>
+          <div className='flex whitespace-nowrap text-2xl'>{children}</div>
         </div>
       </body>
     </html>
   )
-}
-
-{
-  /* 
-          
-    */
 }

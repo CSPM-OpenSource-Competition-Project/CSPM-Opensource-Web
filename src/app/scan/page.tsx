@@ -7,10 +7,10 @@ import ResourceTable from '@/components/pageComponents/resourcePage/resourceTabl
 
 export default function Scan() {
   return (
-    <div className='flex h-full w-full'>
-      <div className='mt-32'>
-        <span>스캔 페이지</span>
-        <div className='grid w-[600px] grid-cols-3'>
+    <div className='flex h-screen w-full rounded bg-white p-3'>
+      <div className='mt-4'>
+        <p>스캔 페이지</p>
+        <div className='grid w-full grid-cols-3'>
           <SelectIAMBox />
           <SelectGroupBox />
           <StartScanButton />

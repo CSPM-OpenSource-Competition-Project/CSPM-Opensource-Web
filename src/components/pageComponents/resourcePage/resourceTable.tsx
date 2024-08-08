@@ -31,7 +31,7 @@ export default function TableComponent() {
   }, [data])
 
   return (
-    <div className='mt-3 h-[700px] w-full overflow-hidden'>
+    <div className='mt-3 h-auto w-full overflow-hidden'>
       <div className='flex h-[35px] w-full items-center gap-4 text-sm text-black'>
         <span>Total : {data.length}</span>
       </div>
@@ -40,7 +40,7 @@ export default function TableComponent() {
 
       {/* TableRow는 map 사용해서 반복하여 데이터 크기만큼 뽑아 내야 함. */}
       {/* <ResourceTableRow index={index} listIndex={listIndex} /> */}
-      <div className='h-[800px]'>
+      <div className=''>
         {currentItems.length > 0 ? (
           currentItems.map((listIndex, index) => (
             <ResourceTableRow key={index} index={index} listIndex={listIndex} />
