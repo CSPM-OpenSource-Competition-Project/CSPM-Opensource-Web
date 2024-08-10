@@ -7,7 +7,6 @@ export default function ReginSelect({ setRegin, regin }: Props) {
   const handler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setRegin(event.target.value)
   }
-  console.log(regin)
   return (
     <>
       <select

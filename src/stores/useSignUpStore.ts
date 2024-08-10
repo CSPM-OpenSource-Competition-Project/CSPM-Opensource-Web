@@ -2,7 +2,7 @@ import { create } from 'zustand'
 
 type signUpFeild = {
   email: string
-  emailVaildator: string
+  emailVaildator: boolean
   password: string
   accessKey: string
   secretKey: string
@@ -13,7 +13,7 @@ type signUpFeild = {
 
 type setSignUpFeild = {
   setEmail: (inputEmail: string) => void
-  setEmailVaildator: (inputNumber: string) => void
+  setEmailVaildator: (inputNumber: boolean) => void
   setPassword: (inputPassword: string) => void
   setSignUpReset: () => void
   setAccessKey: (inputAccessKey: string) => void
@@ -25,7 +25,7 @@ type setSignUpFeild = {
 
 const signUpField: signUpFeild = {
   email: '',
-  emailVaildator: '',
+  emailVaildator: false,
   password: '',
   accessKey: '',
   secretKey: '',

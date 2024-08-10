@@ -2,11 +2,46 @@
 
 import InputLayout from '@/components/input/inputLayout'
 import { useSingUpFeild } from '@/stores/useSignUpStore'
+import { encrypt } from '@/utils/crypto'
 import { useState } from 'react'
 
 export default function EmailField() {
   const [state, setState] = useState(0)
+  const [verificationCode, setVerificationCode] = useState('')
+  const [emailVerificationCode, setEmailVerificationCode] = useState('')
   const { email, setEmail, setEmailVaildator } = useSingUpFeild()
+
+  const handleValid = async () => {
+    try {
+      const response = await fetch('/api/account/validation/email?email=' + email, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      console.log(response.status)
+      if (response.status === 200) {
+        const data = await response.json()
+        setVerificationCode(data.verificationCode)
+        console.log('사용가능')
+      }
+      if (response.status === 410) {
+        alert('이미 존제하는 Email 입니다.')
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  const handleValidCode = () => {
+    if (verificationCode === emailVerificationCode) {
+      setState(1)
+      setEmailVaildator(true)
+    } else {
+      setState(2)
+      setEmailVaildator(false)
+    }
+  }
 
   return (
     <>
@@ -19,7 +54,9 @@ export default function EmailField() {
           setCSS={'rounded-md'}
           setValue={setEmail}
         />
-        <button className='h-12 w-14 rounded-md bg-blue-900 text-white'>검증</button>
+        <button onClick={handleValid} className='h-12 w-14 rounded-md bg-blue-900 text-white'>
+          검증
+        </button>
       </div>
       <div className='flex gap-4'>
         <InputLayout
@@ -27,14 +64,16 @@ export default function EmailField() {
           setName={'set_number'}
           setPlaceholder={'인증 번호 입력'}
           setCSS={'rounded-md'}
-          setValue={setEmailVaildator}
+          setValue={setEmailVerificationCode}
         />
 
-        <button className='h-12 w-14 rounded-md bg-blue-900 text-white'>확인</button>
+        <button onClick={handleValidCode} className='h-12 w-14 rounded-md bg-blue-900 text-white'>
+          확인
+        </button>
       </div>
       <p className='h-8'>
         <span className={`${state === 1 ? '' : 'hidden'} `}>사용 가능 합니다.</span>
-        <span className={`${state === 2 ? '' : 'hidden'} text-red-500`}>사용할 수 없습니다.</span>
+        <span className={`${state === 2 ? '' : 'hidden'} text-red-500`}>검증에 실패했습니다.</span>
       </p>
     </>
   )

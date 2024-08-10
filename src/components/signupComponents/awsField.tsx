@@ -22,7 +22,7 @@ export default function AWSField() {
   const handleInfo = async () => {
     try {
       const response = await fetch(
-        '/api/info?accessKey=' +
+        '/api/account/validation/iam?accessKey=' +
           encrypt(accessKey) +
           '&secretKey=' +
           encrypt(secretKey) +

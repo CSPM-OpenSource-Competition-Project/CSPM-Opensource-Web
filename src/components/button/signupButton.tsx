@@ -4,14 +4,26 @@ import { encrypt } from '@/utils/crypto'
 import { useRouter } from 'next/navigation'
 
 export default function SignupButton() {
-  const { email, password, accessKey, secretKey, region, userName, accountId } = useSingUpFeild()
+  const { email, password, accessKey, secretKey, region, userName, accountId, emailVaildator } =
+    useSingUpFeild()
   const router = useRouter()
 
   const handleSubmit = () => {
-    if (email && password && accessKey && secretKey && region && userName && accountId) {
+    if (
+      email &&
+      password &&
+      accessKey &&
+      secretKey &&
+      region &&
+      userName &&
+      accountId &&
+      emailVaildator
+    ) {
       handleFetch()
     } else if (userName.length === 0) {
       alert('Iam 검증을 해주세요')
+    } else if (emailVaildator === false) {
+      alert('이메일 검증을 해주세요')
     } else {
       alert('필수 사항을 입력해주세요')
     }
@@ -19,14 +31,14 @@ export default function SignupButton() {
 
   const handleFetch = async () => {
     try {
-      const response = await fetch('/api/signup', {
+      const response = await fetch('/api/account/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-
+        // mode: 'no-cors',
         body: JSON.stringify({
-          email: encrypt(email),
+          email: email,
           password: encrypt(password),
           accessKey: encrypt(accessKey),
           secretKey: encrypt(secretKey),
@@ -40,6 +52,8 @@ export default function SignupButton() {
       if (response.status === 200) {
         console.log('회원가입 성공')
         router.push('/')
+      } else {
+        alert('회원가입 실패')
       }
     } catch (e) {
       console.error('에러 : ' + e)
@@ -48,7 +62,6 @@ export default function SignupButton() {
 
   return (
     <button
-      type='submit'
       onClick={handleSubmit}
       className='mt-4 h-12 w-[370px] rounded-lg bg-sky-500 text-lg font-bold text-white'
     >
