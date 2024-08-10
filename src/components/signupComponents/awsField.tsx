@@ -4,11 +4,55 @@ import InputLayout from '@/components/input/inputLayout'
 import ReginSelect from '@/components/select/reginSelect'
 
 import { useSingUpFeild } from '@/stores/useSignUpStore'
+import { encrypt } from '@/utils/crypto'
 import { useState } from 'react'
 
 export default function AWSField() {
   const [state, setState] = useState(0)
-  const { setAccessKey, setSecretKey, setRegin, regin } = useSingUpFeild()
+  const {
+    setAccessKey,
+    setSecretKey,
+    setRegion,
+    accessKey,
+    secretKey,
+    region,
+    setAccountId,
+    setUserName,
+  } = useSingUpFeild()
+  const handleInfo = async () => {
+    try {
+      const response = await fetch(
+        '/api/info?accessKey=' +
+          encrypt(accessKey) +
+          '&secretKey=' +
+          encrypt(secretKey) +
+          '&region=' +
+          encrypt(region),
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          mode: 'no-cors',
+        },
+      )
+
+      console.log(response.status)
+      if (response.status === 200) {
+        const data = await response.json()
+        setAccountId(data.accountId)
+        setUserName(data.userName)
+        setState(1)
+      } else if (response.status === 403) {
+        setState(2)
+      } else {
+        setState(3)
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   return (
     <>
       <label className='text-xl'>AWS 대표 IAM</label>
@@ -28,8 +72,10 @@ export default function AWSField() {
       />
 
       <div className='flex gap-4'>
-        <ReginSelect setRegin={setRegin} regin={regin} />
-        <button className='h-12 w-14 rounded-md bg-blue-900 text-white'>검증</button>
+        <ReginSelect setRegin={setRegion} regin={region} />
+        <button className='h-12 w-14 rounded-md bg-blue-900 text-white' onClick={handleInfo}>
+          검증
+        </button>
       </div>
       <p className='h-8'>
         <span className={`${state === 1 ? '' : 'hidden'}`}>사용 가능 합니다.</span>

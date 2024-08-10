@@ -6,7 +6,9 @@ type signUpFeild = {
   password: string
   accessKey: string
   secretKey: string
-  regin: string
+  region: string
+  accountId: string
+  userName: string
 }
 
 type setSignUpFeild = {
@@ -16,7 +18,9 @@ type setSignUpFeild = {
   setSignUpReset: () => void
   setAccessKey: (inputAccessKey: string) => void
   setSecretKey: (inputSecretKey: string) => void
-  setRegin: (inputRegin: string) => void
+  setRegion: (inputRegion: string) => void
+  setAccountId: (inputAccountId: string) => void
+  setUserName: (inputUserId: string) => void
 }
 
 const signUpField: signUpFeild = {
@@ -25,7 +29,9 @@ const signUpField: signUpFeild = {
   password: '',
   accessKey: '',
   secretKey: '',
-  regin: 'ap-northeast-2',
+  region: 'ap-northeast-2',
+  accountId: '',
+  userName: '',
 }
 
 export const useSingUpFeild = create<signUpFeild & setSignUpFeild>((set) => ({
@@ -35,6 +41,8 @@ export const useSingUpFeild = create<signUpFeild & setSignUpFeild>((set) => ({
   setPassword: (inputPassword) => set((state) => ({ password: inputPassword })),
   setAccessKey: (inputAccessKey) => set((state) => ({ accessKey: inputAccessKey })),
   setSecretKey: (inputSecretKey) => set((state) => ({ secretKey: inputSecretKey })),
-  setRegin: (inputRegin) => set((state) => ({ regin: inputRegin })),
+  setRegion: (inputRegion) => set((state) => ({ region: inputRegion })),
+  setAccountId: (inputAccountid) => set((state) => ({ accountId: inputAccountid })),
+  setUserName: (inputUserId) => set((state) => ({ userName: inputUserId })),
   setSignUpReset: () => set(signUpField),
 }))
