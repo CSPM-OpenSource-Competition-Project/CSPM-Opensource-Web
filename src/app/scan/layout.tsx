@@ -1,4 +1,3 @@
-import { Inter } from 'next/font/google'
 import Header from '@/components/sidebar/header'
 import SideBar from '@/components/sidebar/sidebar'
 
