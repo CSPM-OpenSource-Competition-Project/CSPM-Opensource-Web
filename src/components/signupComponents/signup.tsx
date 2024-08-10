@@ -5,11 +5,37 @@ import Logo from '@/components/logo'
 import AWSField from '@/components/signupComponents/awsField'
 import EmailField from '@/components/signupComponents/emailField'
 import PasswordField from '@/components/signupComponents/passwordField'
+import { useSingUpFeild } from '@/stores/useSignUpStore'
+import { useRouter } from 'next/navigation'
 
 export default function SignupComponent() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const { email, password, accessKey, secretKey, regin } = useSingUpFeild()
+  const router = useRouter()
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    console.log('회원가입 정보 제출')
+    try {
+      const response = await fetch('/api/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+          accessKey: accessKey,
+          secretKey: secretKey,
+          regin: regin,
+        }),
+      })
+
+      if (response.status === 205) {
+        console.log('회원가입 성공')
+        router.push('/')
+      }
+    } catch (e) {
+      console.error('에러 : ' + e)
+    }
   }
   return (
     <main>
