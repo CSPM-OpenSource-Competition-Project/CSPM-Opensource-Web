@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className={inter.className}>
         <div className='h-full w-full bg-[#eef2f8]'>
-          <div className='flex whitespace-nowrap text-2xl'>{children}</div>
+          <div className='flex whitespace-nowrap'>{children}</div>
         </div>
       </body>
     </html>

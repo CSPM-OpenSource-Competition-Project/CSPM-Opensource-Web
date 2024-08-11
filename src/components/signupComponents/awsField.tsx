@@ -44,6 +44,8 @@ export default function AWSField() {
         setState(1)
       } else if (response.status === 403) {
         setState(2)
+      } else if (response.status === 409) {
+        setState(4)
       } else {
         setState(3)
       }
@@ -83,6 +85,9 @@ export default function AWSField() {
         </span>
         <span className={`${state === 3 ? '' : 'hidden'} text-red-500`}>
           오타 : AccessKey, SecretKey을 다시 입력해주세요
+        </span>
+        <span className={`${state === 4 ? '' : 'hidden'} text-red-500`}>
+          중복 : AccessKey, SecretKey가 중복됩니다.
         </span>
       </p>
     </>

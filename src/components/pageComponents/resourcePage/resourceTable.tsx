@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import ResourceTableRow from '@/components/pageComponents/resourcePage/table/resourceTableRow'
 import Pagination from '@/components/pagination'
 import TableHead from '@/components/pageComponents/resourcePage/table/resourceTableHead'
-import { usePagination } from '@/components/Zustand/paginationStore'
+import { usePagination } from '@/stores/paginationStore'
 
 // 스캔 시간, AccountID, 리소스, 리소스ID, Service
 interface Props {
@@ -28,6 +28,7 @@ export default function TableComponent() {
     setCurrentPage(1)
     setDataLength(data.length)
     setItemsPerPage(14)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 
   return (
