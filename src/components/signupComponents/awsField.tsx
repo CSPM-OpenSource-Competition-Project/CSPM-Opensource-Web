@@ -37,7 +37,6 @@ export default function AWSField() {
         },
       )
 
-      console.log(response.status)
       if (response.status === 200) {
         const data = await response.json()
         setAccountId(data.accountId)

@@ -48,9 +48,7 @@ export default function SignupButton() {
         }),
       })
 
-      console.log(response.status)
       if (response.status === 200) {
-        console.log('회원가입 성공')
         router.push('/')
       } else {
         alert('회원가입 실패')

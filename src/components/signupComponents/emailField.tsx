@@ -19,11 +19,10 @@ export default function EmailField() {
           'Content-Type': 'application/json',
         },
       })
-      console.log(response.status)
+
       if (response.status === 200) {
         const data = await response.json()
         setVerificationCode(data.verificationCode)
-        console.log('사용가능')
       }
       if (response.status === 410) {
         alert('이미 존제하는 Email 입니다.')
