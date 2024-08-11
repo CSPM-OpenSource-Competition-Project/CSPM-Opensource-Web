@@ -4,7 +4,6 @@ const aesEncryptionKey = 'ASAC!_KYOBO_DTS_CSPM_ENCRYPT_KEY'
 
 const algorithm = 'aes-256-cbc'
 const key = Buffer.from(aesEncryptionKey, 'utf-8') // 32 bytes key
-console.log(key.subarray)
 const iv = Buffer.from(aesEncryptionKey.substring(0, 16), 'utf-8') // 16 bytes IV
 
 // 암호화 함수
