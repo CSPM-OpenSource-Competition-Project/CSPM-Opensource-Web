@@ -3,9 +3,9 @@ import Image from 'next/image'
 
 export default function Logo() {
   return (
-    <div>
+    <div className='mb-4 flex justify-center'>
       <Link href='/'>
-        <Image src='/logo1.png' width={300} height={200} alt='Logo' className='mb-4'></Image>
+        <Image src='/logo1.png' width={300} height={200} alt='Logo'></Image>
       </Link>
     </div>
   )

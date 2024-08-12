@@ -24,7 +24,7 @@ export default function EmailField() {
         const data = await response.json()
         setVerificationCode(data.verificationCode)
       }
-      if (response.status === 410) {
+      if (response.status === 409) {
         alert('이미 존제하는 Email 입니다.')
       }
     } catch (e) {
