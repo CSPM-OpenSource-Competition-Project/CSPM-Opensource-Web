@@ -1,6 +1,6 @@
 'use client'
 
-import InputLayout from '@/components/input/inputLayout'
+import InputLayout from '@/components/ui/inputLayout'
 import { useState } from 'react'
 
 export default function SearchPwdFrom() {

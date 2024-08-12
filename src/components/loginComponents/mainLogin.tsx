@@ -1,24 +1,61 @@
 'use client'
 
 import { useState } from 'react'
-import EmailInput from '@/components/input/emailInput'
-import PasswordInput from '@/components/input/passwordInput'
 import Logo from '@/components/logo'
 import LoginLink from '@/components/loginComponents/loginLink'
+import { encrypt } from '@/utils/crypto'
+import { useRouter } from 'next/navigation'
+import InputLayout from '@/components/ui/inputLayout'
 
 export default function MainLogin() {
   const [inputEmail, setInputEmail] = useState('')
-  const [loginResult, setLoginResult] = useState(0)
+  const [inputPassword, setInputPassword] = useState('')
+  const [loginResult, setLoginResult] = useState(false)
+  const router = useRouter()
 
-  const handleSubmit = () => {}
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch('/api/account/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: inputEmail,
+          password: encrypt(inputPassword),
+        }),
+      })
+
+      if (response.status === 200) {
+        router.push('/dashboard')
+      } else {
+        setLoginResult(true)
+      }
+    } catch (e) {
+      console.error('에러 : ' + e)
+    }
+  }
 
   return (
     <div>
       <Logo />
       <form onSubmit={handleSubmit} className='mt-6 flex-col items-center justify-center'>
         <div className='flex flex-col items-center justify-center'>
-          <EmailInput />
-          <PasswordInput />
+          <InputLayout
+            setType={'email'}
+            setName={'set_email'}
+            setPlaceholder={'Email'}
+            setCSS={'rounded-t-md text-xl'}
+            setValue={setInputEmail}
+          />
+
+          <InputLayout
+            setType={'password'}
+            setName={'set_password'}
+            setPlaceholder={'Password'}
+            setCSS={'rounded-b-md text-xl'}
+            setValue={setInputPassword}
+          />
         </div>
         <p className='mt-4 flex justify-center'>
           <button
@@ -33,11 +70,8 @@ export default function MainLogin() {
         <LoginLink />
       </p>
       <p className='mt-4 flex justify-center text-red-500'>
-        <span className={`${loginResult == 1 ? '' : 'hidden'} text-base`}>
-          아이디 또는 비밀번호가 잘못 되었습니다.
-        </span>
-        <span className={`${loginResult == 2 ? '' : 'hidden'} text-base`}>
-          아이디와 비밀번호를 정확히 입력해 주세요.
+        <span className={`${loginResult ? '' : 'hidden'} text-base text-red-500`}>
+          아이디 또는 비밀번호가 잘못되었습니다.
         </span>
       </p>
     </div>

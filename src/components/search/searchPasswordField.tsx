@@ -1,9 +1,7 @@
-'use client'
 import ToLoginButton from '@/components/button/toLoginButton'
-import InputLayout from '@/components/input/inputLayout'
+
 import Logo from '@/components/logo'
 import SearchPwdFrom from '@/components/search/searchPwdFrom'
-import { useState } from 'react'
 
 export default function SearchPasswordField() {
   return (

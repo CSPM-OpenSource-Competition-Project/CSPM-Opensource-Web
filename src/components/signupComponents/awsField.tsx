@@ -1,6 +1,6 @@
 'use client'
 
-import InputLayout from '@/components/input/inputLayout'
+import InputLayout from '@/components/ui/inputLayout'
 import ReginSelect from '@/components/select/reginSelect'
 
 import { useSingUpFeild } from '@/stores/useSignUpStore'

@@ -1,6 +1,6 @@
 'use client'
 
-import InputLayout from '@/components/input/inputLayout'
+import InputLayout from '@/components/ui/inputLayout'
 import { useSingUpFeild } from '@/stores/useSignUpStore'
 import { encrypt } from '@/utils/crypto'
 import { useState } from 'react'
@@ -12,6 +12,7 @@ export default function EmailField() {
   const { email, setEmail, setEmailVaildator } = useSingUpFeild()
 
   const handleValid = async () => {
+    setState(3)
     try {
       const response = await fetch('/api/account/validation/email?email=' + email, {
         method: 'GET',
@@ -25,7 +26,7 @@ export default function EmailField() {
         setVerificationCode(data.verificationCode)
       }
       if (response.status === 409) {
-        alert('이미 존제하는 Email 입니다.')
+        setState(4)
       }
     } catch (e) {
       console.error(e)
@@ -73,6 +74,10 @@ export default function EmailField() {
       <p className='h-8'>
         <span className={`${state === 1 ? '' : 'hidden'} `}>사용 가능 합니다.</span>
         <span className={`${state === 2 ? '' : 'hidden'} text-red-500`}>검증에 실패했습니다.</span>
+        <span className={`${state === 3 ? '' : 'hidden'} `}>인증 번호 입력해주세요.</span>
+        <span className={`${state === 4 ? '' : 'hidden'} text-red-500`}>
+          이메일이 중복되었습니다.
+        </span>
       </p>
     </>
   )
