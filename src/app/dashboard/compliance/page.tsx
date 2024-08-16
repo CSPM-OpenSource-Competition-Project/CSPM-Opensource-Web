@@ -2,7 +2,7 @@ import ComplianceMultiFilterMenuBar from '../../../components/complianceField/Co
 import ComplianceTableComponent from '../../../components/complianceField/ComplianceTableComponent'
 export default function Compliance() {
   return (
-    <main className='grid grid-cols-1 gap-4'>
+    <main className='grid grid-cols-1 gap-4 bg-white'>
       <div>
         <ComplianceMultiFilterMenuBar />
       </div>
