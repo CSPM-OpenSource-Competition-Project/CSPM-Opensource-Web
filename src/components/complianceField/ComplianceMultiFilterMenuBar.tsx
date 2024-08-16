@@ -8,10 +8,14 @@ import ResourceSelectBox from '../../components/select/resourceSelectBox'
 export default function MultiFilterMenuBar() {
   return (
     <div className='grid grid-cols-3 gap-4'>
-      <IAMSelectBox />
+      <div className='ml-2'>
+        <IAMSelectBox />
+      </div>
       <GroupSelectBox />
       <CommonButton label='취약점 검출' />
-      <ResourceSelectBox />
+      <div className='ml-2'>
+        <ResourceSelectBox />
+      </div>
       <VulnerabilityLevel />
       <VulnerabilityTitle />
     </div>
