@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import ResourceTableRow from '@/components/pageComponents/resourcePage/table/resourceTableRow'
 import Pagination from '@/components/pagination'
-import { usePagination } from '@/components/Zustand/paginationStore'
+import { usePagination } from '@/stores/paginationStore'
 import ComplianceTableHead from '../pageComponents/resourcePage/table/complianceTableHead'
 
 // 스캔 시간, AccountID, 리소스, 리소스ID, Service

@@ -1,6 +1,5 @@
 'use client'
-
-import InputLayout from '@/components/input/inputLayout'
+import InputLayout from '@/components/ui/inputLayout'
 import { useSingUpFeild } from '@/stores/useSignUpStore'
 
 export default function PassowrdField() {

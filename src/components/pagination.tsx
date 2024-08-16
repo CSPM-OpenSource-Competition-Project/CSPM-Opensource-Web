@@ -1,6 +1,6 @@
 'use client'
 
-import { usePagination } from '@/components/Zustand/paginationStore'
+import { usePagination } from '@/stores/paginationStore'
 import RightArrow from '@image/icons/right.svg'
 import LeftArrow from '@image/icons/left.svg'
 import RightLastArrow from '@image/icons/lastRight.svg'
