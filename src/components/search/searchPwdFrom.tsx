@@ -11,8 +11,8 @@ export default function SearchPwdFrom() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     try {
-      const response = await fetch('/api/account/password/' + email, {
-        method: 'GET',
+      const response = await fetch('/api/account/password/' + email + '/' + password, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -20,7 +20,6 @@ export default function SearchPwdFrom() {
 
       if (response.status === 200) {
         const data = await response.json()
-        setPassword(data.password)
         setState(1)
       } else {
         setState(2)
@@ -31,7 +30,7 @@ export default function SearchPwdFrom() {
   }
   return (
     <div>
-      <form className='mt-2 flex gap-4' onSubmit={handleSubmit}>
+      <form className='mt-2 flex-col' onSubmit={handleSubmit}>
         <InputLayout
           setType={'email'}
           setName={'email'}
@@ -39,18 +38,26 @@ export default function SearchPwdFrom() {
           setCSS={'rounded-md'}
           setValue={setEmail}
         />
-        <button
-          type='submit'
-          className='font-blod h-12 w-16 rounded-lg bg-blue-900 text-lg font-bold text-white'
-        >
-          확인
-        </button>
+
+        <div className='mt-4 flex gap-4'>
+          <InputLayout
+            setType={'password'}
+            setName={'set_password'}
+            setPlaceholder={'비밀번호 입력'}
+            setCSS={'rounded-md'}
+            setValue={setPassword}
+          />
+          <button
+            type='submit'
+            className='font-blod h-12 w-16 rounded-lg bg-blue-900 text-lg font-bold text-white'
+          >
+            확인
+          </button>
+        </div>
       </form>
 
       <p className='mt-4 h-8'>
-        <span className={`${state === 1 ? '' : 'hidden'} text-bold`}>
-          비밀번호는 {password} 입니다.
-        </span>
+        <span className={`${state === 1 ? '' : 'hidden'} text-bold`}>비밀번호 변경 성공</span>
         <span className={`${state === 2 ? '' : 'hidden'} font-bold text-red-500`}>
           가입한 이력이 없습니다.
         </span>

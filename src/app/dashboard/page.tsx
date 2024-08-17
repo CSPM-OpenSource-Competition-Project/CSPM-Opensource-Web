@@ -1,3 +1,3 @@
 export default function DashBoard() {
-  return <div>dashboard</div>
+  return <div>DashBord 입니다.</div>
 }
