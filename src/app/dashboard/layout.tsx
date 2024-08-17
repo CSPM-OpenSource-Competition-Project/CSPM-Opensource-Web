@@ -8,7 +8,7 @@ export default function RootLayout({
 }>) {
   return (
     <div className='flex flex-col whitespace-nowrap text-2xl'>
-      <div className='h-16 w-full'>
+      <div className='h-20 w-full'>
         <Header />
       </div>
       <div className='flex h-auto w-full'>

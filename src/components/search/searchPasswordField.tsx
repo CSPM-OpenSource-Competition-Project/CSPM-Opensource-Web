@@ -7,7 +7,7 @@ export default function SearchPasswordField() {
   return (
     <main>
       <Logo />
-      <h1 className='mt-6 text-2xl'>비밀번호 찾기</h1>
+      <h1 className='mt-6 text-2xl'>비밀번호 재설정</h1>
       <SearchPwdFrom />
       <ToLoginButton />
     </main>

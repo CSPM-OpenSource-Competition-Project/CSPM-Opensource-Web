@@ -3,9 +3,10 @@
 import { useState } from 'react'
 import Logo from '@/components/logo'
 import LoginLink from '@/components/loginComponents/loginLink'
-import { encrypt } from '@/utils/crypto'
+
 import { useRouter } from 'next/navigation'
 import InputLayout from '@/components/ui/inputLayout'
+import { ALL } from 'dns'
 
 export default function MainLogin() {
   const [inputEmail, setInputEmail] = useState('')
@@ -13,20 +14,33 @@ export default function MainLogin() {
   const [loginResult, setLoginResult] = useState(false)
   const router = useRouter()
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    const formData = new FormData()
+    formData.append('username', inputEmail)
+    formData.append('password', inputPassword)
+
     try {
-      const response = await fetch('/api/account/login', {
+      const response = await fetch('http://localhost:8080/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: inputEmail,
-          password: encrypt(inputPassword),
-        }),
+        body: formData,
       })
 
-      if (response.status === 200) {
+      if (response.ok) {
+        const authorization = response.headers.get('Authorization')
+        const refreshToken = response.headers.get('Refresh-Token')
+
+        if (authorization) {
+          localStorage.setItem('authorization', authorization)
+        } else {
+          console.warn('Authorization header is missing')
+        }
+        if (refreshToken) {
+          localStorage.setItem('refreshToken', refreshToken)
+        } else {
+          console.warn('refreshToken header is missing')
+        }
         router.push('/dashboard')
       } else {
         setLoginResult(true)
