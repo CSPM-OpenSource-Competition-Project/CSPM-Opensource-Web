@@ -1,4 +1,14 @@
+import ComplianceMultiFilterMenuBar from '../../../components/complianceField/ComplianceMultiFilterMenuBar'
+import ComplianceTableComponent from '../../../components/complianceField/ComplianceTableComponent'
 export default function Compliance() {
-  return <main className='flex h-full w-full flex-col items-center justify-between p-3'>compliance 페이지</main>
+  return (
+    <main className='grid grid-cols-1 gap-4 bg-white'>
+      <div>
+        <ComplianceMultiFilterMenuBar />
+      </div>
+      <div className='mt-10'>
+        <ComplianceTableComponent />
+      </div>
+    </main>
+  )
 }
-

@@ -33,6 +33,9 @@ export default function ResourceTableRow({ index, listIndex }: TableProps) {
       <div className='col-span-2 flex h-full w-full items-center overflow-hidden'>
         {listIndex.service}
       </div>
+      <div className='col-span-2 flex h-full w-full items-center overflow-hidden'>
+        {listIndex.service}
+      </div>
     </div>
   )
 }
