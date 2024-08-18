@@ -7,15 +7,15 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <div className='flex flex-col whitespace-nowrap text-2xl'>
+    <div className='flex h-full w-full flex-col'>
       <div className='h-20 w-full'>
         <Header />
       </div>
-      <div className='flex h-auto w-full'>
+      <div className='flex h-full w-full'>
         <div className='w-[200px]'>
           <SideBar />
         </div>
-        <div>{children}</div>
+        {children}
       </div>
     </div>
   )
