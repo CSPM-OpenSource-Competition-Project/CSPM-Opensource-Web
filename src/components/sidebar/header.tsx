@@ -1,13 +1,16 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import LogoutButton from '@/components/button/LogoutButton'
 
 export default function Header() {
   return (
-    <div className='fixed z-50 flex h-20 w-full items-center bg-[#eef2f8] px-4'>
-      <Link href='/'>
-        <Image src='/logo1.png' width={200} height={160} alt='Logo' className=''></Image>
+    <div className='fixed z-50 flex h-20 w-full items-center justify-between bg-[#eef2f8] px-4'>
+      <Link href='/dashboard'>
+        <Image src='/logo1.png' width={200} height={160} alt='Logo'></Image>
       </Link>
-      {/* <div className='cursor-pointer text-[30px] font-bold text-blue-900'>OpenSourceCSPM</div> */}
+      <Link href='/'>
+        <LogoutButton />
+      </Link>
     </div>
   )
 }
