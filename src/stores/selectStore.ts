@@ -6,6 +6,7 @@ type selectState = {
   groupSelected: string
   resourceSelected: string
   serviceSelected: string
+  regionSelected: string
 }
 
 type selectAction = {
@@ -13,6 +14,7 @@ type selectAction = {
   setGroupSelected: (selectGroup: string) => void
   setResourceSelected: (selectResource: string) => void
   setServiceSelected: (selectService: string) => void
+  setRegionSelected: (selectResion: string) => void
 }
 
 const initialSelect: selectState = {
@@ -20,6 +22,7 @@ const initialSelect: selectState = {
   groupSelected: '',
   resourceSelected: '',
   serviceSelected: '',
+  regionSelected: 'ap-northease-2',
 }
 
 export const useSelectType = create<selectState & selectAction>((set) => ({
@@ -28,6 +31,7 @@ export const useSelectType = create<selectState & selectAction>((set) => ({
   setGroupSelected: (selectGroup) => set((state) => ({ groupSelected: selectGroup })),
   setResourceSelected: (selectResource) => set((state) => ({ resourceSelected: selectResource })),
   setServiceSelected: (selectService) => set((state) => ({ serviceSelected: selectService })),
+  setRegionSelected: (selectResion) => set((state) => ({ regionSelected: selectResion })),
 }))
 
 type filterStore = {

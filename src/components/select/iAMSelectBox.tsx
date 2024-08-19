@@ -28,7 +28,7 @@ export default function SelectIAMBox() {
           <SelectGroup>
             <SelectItem value='none'>IAM 선택</SelectItem>
             {iAMFilter?.map((iam, index) => (
-              <SelectItem key={index} value={iam}>
+              <SelectItem id={`account-${index}-select`} key={index} value={iam}>
                 {iam}
               </SelectItem>
             ))}

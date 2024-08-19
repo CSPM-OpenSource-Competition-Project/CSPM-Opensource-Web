@@ -4,6 +4,7 @@ import ResourceTableRow from '@/components/pageComponents/resourcePage/table/res
 import Pagination from '@/components/pagination'
 import TableHead from '@/components/pageComponents/resourcePage/table/resourceTableHead'
 import { usePagination } from '@/stores/paginationStore'
+import FetchData from '@/components/pageComponents/resourcePage/table/resourceFetchData'
 
 // 스캔 시간, AccountID, 리소스, 리소스ID, Service
 interface Props {
@@ -16,6 +17,7 @@ interface Props {
 
 export default function TableComponent() {
   const [data, setData] = useState<Props[]>([]) // 목록에 가져올 데이터
+  FetchData(setData)
 
   // 현재 페이지, 페이지당 표시할 아이템 수, 데이터의 총 길이,
   const { currentPage, itemsPerPage, setDataLength, setCurrentPage, setItemsPerPage } =
