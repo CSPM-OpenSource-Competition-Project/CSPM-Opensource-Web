@@ -1,4 +1,5 @@
 'use client'
+
 import { useEffect, useState } from 'react'
 import ResourceTableRow from '@/components/pageComponents/resourcePage/table/resourceTableRow'
 import Pagination from '@/components/pagination'
@@ -6,7 +7,7 @@ import TableHead from '@/components/pageComponents/resourcePage/table/resourceTa
 import { usePagination } from '@/stores/paginationStore'
 import FetchData from '@/components/pageComponents/resourcePage/table/resourceFetchData'
 
-// 스캔 시간, AccountID, 리소스, 리소스ID, Service
+// 스캔 시간, AccountID, 리소스, 리소스ID, Service 리스트 조회
 interface Props {
   scanTime: string
   accountId: string
@@ -43,7 +44,8 @@ export default function TableComponent() {
 
       {/* TableRow는 map 사용해서 반복하여 데이터 크기만큼 뽑아 내야 함. */}
       {/* <ResourceTableRow index={index} listIndex={listIndex} /> */}
-      <div className=''>
+      <div className='h-[560px]'>
+        {currentItems.length}
         {currentItems.length > 0 ? (
           currentItems.map((listIndex, index) => (
             <ResourceTableRow key={index} index={index} listIndex={listIndex} />

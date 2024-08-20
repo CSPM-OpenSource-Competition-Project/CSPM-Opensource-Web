@@ -26,12 +26,18 @@ export default function SelectIAMBox() {
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectItem value='none'>IAM 선택</SelectItem>
+            <SelectItem value='none'>IAM 선택해줘</SelectItem>
             {iAMFilter?.map((iam, index) => (
               <SelectItem id={`account-${index}-select`} key={index} value={iam}>
                 {iam}
               </SelectItem>
             ))}
+            <SelectItem value='none'>IAM 선택해줘</SelectItem>
+            {/* {iAMFilter?.map((iam, index) => (
+              <SelectItem id={`account-${index}-select`} key={index} value={iam}>
+                {iam}
+              </SelectItem>
+            ))} */}
           </SelectGroup>
         </SelectContent>
       </Select>

@@ -1,4 +1,3 @@
-import { init } from 'next/dist/compiled/webpack/webpack'
 import { create } from 'zustand'
 
 type selectState = {
@@ -36,17 +35,21 @@ export const useSelectType = create<selectState & selectAction>((set) => ({
 
 type filterStore = {
   iAMFilter: string[]
+  scanGroupFilter: string[]
 }
 
 type filterAction = {
   setIAMFilter: (iAMList: string[]) => void
+  setScanGroupFilter: (scanGroupList: string[]) => void
 }
 
 const initialFilter: filterStore = {
   iAMFilter: [],
+  scanGroupFilter: [],
 }
 
 export const useFilter = create<filterStore & filterAction>((set) => ({
   ...initialFilter,
   setIAMFilter: (iAMList) => set((state) => ({ iAMFilter: iAMList })),
+  setScanGroupFilter: (scanGroupList) => set((state) => ({ scanGroupFilter: scanGroupList })),
 }))
