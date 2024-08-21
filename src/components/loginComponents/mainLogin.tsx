@@ -6,7 +6,6 @@ import LoginLink from '@/components/loginComponents/loginLink'
 
 import { useRouter } from 'next/navigation'
 import InputLayout from '@/components/ui/inputLayout'
-import { ALL } from 'dns'
 
 export default function MainLogin() {
   const [inputEmail, setInputEmail] = useState('')
@@ -16,30 +15,28 @@ export default function MainLogin() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
-    const formData = new FormData()
-    formData.append('username', inputEmail)
-    formData.append('password', inputPassword)
+    const loginInfo = {
+      username: inputEmail,
+      password: inputPassword,
+    }
 
     try {
       const response = await fetch('http://localhost:8080/login', {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify(loginInfo),
       })
 
       if (response.ok) {
-        const authorization = response.headers.get('Authorization')
-        const refreshToken = response.headers.get('Refresh-Token')
+        const access = response.headers.get('access')
 
-        if (authorization) {
-          localStorage.setItem('authorization', authorization)
+        if (access) {
+          localStorage.setItem('access', access)
         } else {
           console.warn('Authorization header is missing')
-        }
-        if (refreshToken) {
-          localStorage.setItem('refreshToken', refreshToken)
-        } else {
-          console.warn('refreshToken header is missing')
         }
         router.push('/dashboard')
       } else {

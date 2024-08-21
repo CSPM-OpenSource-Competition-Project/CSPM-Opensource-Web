@@ -2,9 +2,25 @@
 import Logout from '@image/icons/logout.svg'
 
 export default function LogoutButton() {
-  const handleRemove = () => {
-    localStorage.removeItem('authorization')
-    localStorage.removeItem('refreshToken')
+  const handleRemove = async () => {
+    const accessToken = localStorage.getItem('access')
+
+    try {
+      const response = await fetch('/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          access: accessToken ? `${accessToken}` : '',
+        },
+        credentials: 'include',
+      })
+      if (response.ok) {
+        console.log('로그아웃 성공')
+        localStorage.removeItem('access')
+      } else {
+        console.log('로그아웃 실패')
+      }
+    } catch (e) {}
   }
 
   return (
