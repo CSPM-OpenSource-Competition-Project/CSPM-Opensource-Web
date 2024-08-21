@@ -1,3 +1,8 @@
 export default function DashBoard() {
-  return
+  return (
+    <div className='bg-white'>
+      dashobord dndndndndndndnndndndndnndndndndn
+      <button>클릭</button>
+    </div>
+  )
 }
