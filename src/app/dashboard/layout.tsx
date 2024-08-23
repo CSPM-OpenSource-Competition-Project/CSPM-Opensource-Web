@@ -15,7 +15,7 @@ export default function DashboardLayout({
         <div className='h-full w-[200px] flex-shrink-0'>
           <SideBar />
         </div>
-        <div className='h-full w-full p-2'>{children}</div>
+        <div className='h-full w-full p-4'>{children}</div>
       </div>
     </div>
   )
