@@ -9,7 +9,7 @@ export default function MainDashboard() {
         <div className='h-[30%] w-full'>
           <GroupSetting />
         </div>
-        <div className='h-[69%] w-full'>
+        <div className='h-[70%] w-full'>
           <ScanGraph />
         </div>
       </div>

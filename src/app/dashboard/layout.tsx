@@ -16,7 +16,7 @@ export default function DashboardLayout({
           {/* 자식 컴포넌트가 차지할 공간을 설정합니다 */}
           <SideBar />
         </div>
-        <div className='h-full w-full p-2'>{children}</div>
+        <div className='h-full w-full p-4'>{children}</div>
       </div>
     </div>
   )
