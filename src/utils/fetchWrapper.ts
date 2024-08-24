@@ -28,6 +28,7 @@ const apiFetch = async (url: string, options?: FetchOptions): Promise<[number, a
     const response = await fetch(`${url}`, {
       ...options,
       headers: {
+        'Content-Type': 'application/json',
         headersContent,
         access: accessToken ? `${accessToken}` : '', // 빈 문자열 사용
       },
@@ -41,6 +42,7 @@ const apiFetch = async (url: string, options?: FetchOptions): Promise<[number, a
           method: 'POST', // 재발급 요청은 일반적으로 POST 방식
           credentials: 'include', // 쿠키를 포함하기 위해
           headers: {
+            'Content-Type': 'application/json',
             headersContent,
           },
         })
@@ -60,6 +62,7 @@ const apiFetch = async (url: string, options?: FetchOptions): Promise<[number, a
           ...options,
           credentials: 'include',
           headers: {
+            'Content-Type': 'application/json',
             headersContent,
             access: newAccessToken ? `${newAccessToken}` : '', // 새 토큰 사용
           },

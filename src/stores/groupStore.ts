@@ -16,6 +16,7 @@ type Group = {
 }
 
 type groupStore = {
+  successState: number
   groupList: Group[]
   groupIndex: number
   groupName: string
@@ -34,6 +35,7 @@ type groupStore = {
 }
 
 type setGroupAction = {
+  setSuccessState: (newState: number) => void
   setGroupList: (newGroup: Group[]) => void
   setGroupFeildReset: () => void
   setGroupIndex: (newGroupIndex: number) => void
@@ -53,9 +55,10 @@ type setGroupAction = {
 }
 
 const groupFeild: groupStore = {
+  successState: 0,
   groupList: [],
   groupIndex: -1,
-  groupName: '',
+  groupName: '추가하기',
   inputGroupName: '',
   inputVpc: false,
   inputSubnet: false,
@@ -72,6 +75,7 @@ const groupFeild: groupStore = {
 
 export const useGroupFeild = create<groupStore & setGroupAction>((set) => ({
   ...groupFeild,
+  setSuccessState: (newState) => set((state) => ({ successState: newState })),
   setGroupList: (newGroupList) => set((state) => ({ groupList: newGroupList })),
   setGroupIndex: (newGroupIndex) => set((state) => ({ groupIndex: newGroupIndex })),
   setGroupName: (newGroupName) => set((state) => ({ groupName: newGroupName })),
@@ -90,5 +94,21 @@ export const useGroupFeild = create<groupStore & setGroupAction>((set) => ({
     set((state) => ({ inputSecurityGroup: newInputSecurityGroup })),
   setInputIam: (newInputIam) => set((state) => ({ inputIam: newInputIam })),
   setInputRds: (newInputRds) => set((state) => ({ inputRds: newInputRds })),
-  setGroupFeildReset: () => set(groupFeild),
+  setGroupFeildReset: () =>
+    set({
+      groupIndex: -1,
+      groupName: '추가하기',
+      inputGroupName: '',
+      inputVpc: false,
+      inputSubnet: false,
+      inputRouteTable: false,
+      inputInternetGateway: false,
+      inputInstance: false,
+      inputEni: false,
+      inputEbs: false,
+      inputS3: false,
+      inputSecurityGroup: false,
+      inputIam: false,
+      inputRds: false,
+    }),
 }))
