@@ -28,6 +28,7 @@ const apiFetch = async (url: string, options?: FetchOptions): Promise<[number, a
     const response = await fetch(`${url}`, {
       ...options,
       headers: {
+        'Content-Type': 'application/json',
         headersContent,
         access: accessToken ? `${accessToken}` : '', // 빈 문자열 사용
       },
@@ -41,13 +42,14 @@ const apiFetch = async (url: string, options?: FetchOptions): Promise<[number, a
           method: 'POST', // 재발급 요청은 일반적으로 POST 방식
           credentials: 'include', // 쿠키를 포함하기 위해
           headers: {
+            'Content-Type': 'application/json',
             headersContent,
           },
         })
 
         //재발급 요청 결과
         if (!retryResponse.ok) {
-          throw new Error('Retry request failed')
+          console.error('재발급 실패')
         }
 
         const newAccessToken = retryResponse.headers.get('access')
@@ -60,27 +62,29 @@ const apiFetch = async (url: string, options?: FetchOptions): Promise<[number, a
           ...options,
           credentials: 'include',
           headers: {
+            'Content-Type': 'application/json',
             headersContent,
             access: newAccessToken ? `${newAccessToken}` : '', // 새 토큰 사용
           },
         })
 
         if (!finalResponse.ok) {
-          throw new Error('Final request failed')
+          console.error('재발급 후 다시 fetch 진행 실패')
         }
 
+        console.log('정상적으로 fetch 진행됨')
         const data = await finalResponse.json()
         return [finalResponse.status, data]
       }
 
-      throw new Error('Request failed')
+      console.error('요구된 첫 번째 패치 실패')
     }
 
     const data = await response.json()
     return [response.status, data]
   } catch (error) {
     console.error('API 요청 중 오류 발생:', error)
-    throw error // 다른 에러는 다시 던짐
+    return [0, null]
   }
 }
 

@@ -12,7 +12,7 @@ export default function InputLayout({ setType, setName, setPlaceholder, setCSS, 
   }
   return (
     <input
-      className={`flex h-12 w-[300px] border border-gray-400 px-1 ${setCSS}`}
+      className={`h-12 w-[300px] border border-gray-400 px-1 ${setCSS}`}
       type={setType}
       name={setName}
       placeholder={setPlaceholder}
