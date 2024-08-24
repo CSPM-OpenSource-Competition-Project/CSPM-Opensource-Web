@@ -10,27 +10,33 @@ import GroupCheckBox from '@/components/dashboardField/groupCheckBox'
 import GroupNameBox from '@/components/dashboardField/groupNameBox'
 
 export default function GroupSetting() {
-  const { groupList, setGroupList } = useGroupFeild()
+  const {
+    groupList,
+    setGroupList,
+    successState,
+    setGroupName,
+    setSuccessState,
+    setGroupFeildReset,
+  } = useGroupFeild()
   const [getFetch, setGetFetch] = useState(false)
 
   const groupFetch = async () => {
     const [status, data] = await apiFetch('/api/dashboard/group', {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: {},
     })
+    console.log('getFetch가 일어남')
 
     if (status == 0) {
       console.error('fetch가 안됩니다.')
     }
     if (status === 200) {
+      setGetFetch(true)
+      setGroupList(data)
+      setGroupFeildReset()
       setTimeout(() => {
-        setGetFetch(true)
-        console.log(data)
-        setGroupList(data)
-        console.log('fetch')
-      }, 3000) // 3초 후에 실행
+        setSuccessState(0)
+      }, 1000)
     }
 
     if (status === 400) {
@@ -47,6 +53,11 @@ export default function GroupSetting() {
   useEffect(() => {
     groupFetch()
   }, [])
+
+  useEffect(() => {
+    groupFetch()
+    setGroupName('')
+  }, [successState])
   return getFetch ? (
     <div className='flex h-full w-full flex-col rounded-md bg-white p-4 px-2 shadow-lg'>
       <div className='flex h-12 w-full items-center justify-between gap-2'>

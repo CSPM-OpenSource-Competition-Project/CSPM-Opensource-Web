@@ -102,7 +102,8 @@ export default function GroupCheckBox() {
       setInputRds(groupList[groupIndex].rds)
       setInputIam(groupList[groupIndex].iam)
     }
-    if (groupName !== 'default' && groupName !== 'VPC Group' && groupName != '인스턴스 Group') {
+
+    if (groupName === '추가하기') {
       setGroupDisable(false)
     } else {
       setGroupDisable(true)
