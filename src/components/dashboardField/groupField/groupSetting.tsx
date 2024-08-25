@@ -3,11 +3,11 @@
 import GroupSelect from '@/components/select/groupSelect'
 import SetIcon from '@image/icons/setIcon.svg'
 import { useEffect, useState } from 'react'
-import './dashstyle.css'
+import '../dashstyle.css'
 import apiFetch from '@/utils/fetchWrapper'
 import { useGroupFeild } from '@/stores/groupStore'
-import GroupCheckBox from '@/components/dashboardField/groupCheckBox'
-import GroupNameBox from '@/components/dashboardField/groupNameBox'
+import GroupCheckBox from '@/components/dashboardField/groupField/groupCheckBox'
+import GroupNameBox from '@/components/dashboardField/groupField/groupNameBox'
 
 export default function GroupSetting() {
   const {
@@ -34,6 +34,7 @@ export default function GroupSetting() {
       setGetFetch(true)
       setGroupList(data)
       setGroupFeildReset()
+      console.log(data)
       setTimeout(() => {
         setSuccessState(0)
       }, 1000)
@@ -61,7 +62,7 @@ export default function GroupSetting() {
   return getFetch ? (
     <div className='flex h-full w-full flex-col rounded-md bg-white p-4 px-2 shadow-lg'>
       <div className='flex h-12 w-full items-center justify-between gap-2'>
-        <div className='flex'>
+        <div className='flex gap-1'>
           <SetIcon className='h-7 w-7' />
           <span className='text-xl'>스캔 그룹 세팅</span>
         </div>
