@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import './dashstyle.css'
+import '../dashstyle.css'
 import { useGroupFeild } from '@/stores/groupStore'
 export default function GroupCheckBox() {
   const [groupDisable, setGroupDisable] = useState(false)
