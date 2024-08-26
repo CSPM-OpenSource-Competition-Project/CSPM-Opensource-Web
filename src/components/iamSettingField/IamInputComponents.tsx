@@ -4,8 +4,11 @@ import { useState } from 'react'
 import InputLayout from '@/components/ui/inputLayout'
 import { useRouter } from 'next/navigation'
 import apiFetch from '@/utils/fetchWrapper'
+import { encrypt } from '@/utils/crypto'
 
 export default function IamInputComponents() {
+  const [state, setState] = useState(0)
+  const [inputNickName, setInputNickName] = useState('')
   const [inputAccessKey, setInputAccessKey] = useState('')
   const [inputSecretKey, setInputSecretKey] = useState('')
   const [inputRegion, setInputRegion] = useState('')
@@ -14,18 +17,33 @@ export default function IamInputComponents() {
   // "검증" 버튼을 위한 GET 요청 처리 함수
   const handleValidation = async (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
-
+    const enAccessKey = encrypt(inputAccessKey)
+    const enSecreetKey = encrypt(inputSecretKey)
+    const enRegion = encrypt(inputRegion)
     try {
-      const [statusCode, data] = await apiFetch('/api/get', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
+      const [statusCode, data] = await apiFetch(
+        '/api/iamsettings/validation/iam?accessKey=' +
+          encodeURIComponent(enAccessKey) +
+          '&secretKey=' +
+          encodeURIComponent(enSecreetKey) +
+          '&region=' +
+          encodeURIComponent(enRegion),
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
-      })
+      )
       if (statusCode === 200) {
         console.log('검증 성공:', data)
+        setState(1)
+      } else if (statusCode === 403) {
+        setState(2)
+      } else if (statusCode === 409) {
+        setState(3)
       } else {
-        console.log('검증 실패:', statusCode)
+        setState(4)
       }
     } catch (e) {
       console.error(e)
@@ -42,17 +60,25 @@ export default function IamInputComponents() {
     formData.append('region', inputRegion)
 
     try {
-      const [statusCode, data] = await apiFetch('/api/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const [statusCode, data] = await apiFetch(
+        '/api/iamsettings/validation/iam?accessKey=' +
+          encodeURIComponent(inputAccessKey) +
+          '&secretKey=' +
+          encodeURIComponent(inputSecretKey) +
+          '&region=' +
+          encodeURIComponent(inputRegion),
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            accesskey: inputAccessKey,
+            secretkey: inputSecretKey,
+            region: inputRegion,
+          }),
         },
-        body: JSON.stringify({
-          accesskey: inputAccessKey,
-          secretkey: inputSecretKey,
-          region: inputRegion,
-        }),
-      })
+      )
       if (statusCode === 200) {
         console.log('데이터 추가 성공:', data)
       } else {
@@ -98,6 +124,16 @@ export default function IamInputComponents() {
             setValue={setInputRegion}
           />
         </div>
+        <div className='flex flex-col space-y-2'>
+          <span>Ncik Name</span>
+          <InputLayout
+            setType={'text'}
+            setName={'set_nickname'}
+            setPlaceholder={'Name'}
+            setCSS={'rounded text-xl'}
+            setValue={setInputNickName}
+          />
+        </div>
       </div>
       <div className='ml-15 flex flex-row justify-center'>
         <p className='mt-4'>
@@ -108,6 +144,18 @@ export default function IamInputComponents() {
           >
             검증
           </button>
+        </p>
+        <p className='h-8'>
+          <span className={`${state === 1 ? '' : 'hidden'}`}>사용 가능 합니다.</span>
+          <span className={`${state === 2 ? '' : 'hidden'} text-red-500`}>
+            권한 문제 : AWS IAM 권한을 넣어주세요
+          </span>
+          <span className={`${state === 3 ? '' : 'hidden'} text-red-500`}>
+            오타 : AccessKey, SecretKey을 다시 입력해주세요
+          </span>
+          <span className={`${state === 4 ? '' : 'hidden'} text-red-500`}>
+            중복 : AccessKey, SecretKey가 중복됩니다.
+          </span>
         </p>
         <p className='ml-6 mt-4'>
           <button
