@@ -54,35 +54,34 @@ export default function IamInputComponents() {
   const handleAdd = async (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
 
-    const formData = new FormData()
-    formData.append('accesskey', inputAccessKey)
-    formData.append('secretkey', inputSecretKey)
-    formData.append('region', inputRegion)
+    const enAccessKey = encrypt(inputAccessKey)
+    const enSecreetKey = encrypt(inputSecretKey)
+
+    console.log('Encrypted Access Key:', enAccessKey)
+    console.log('Encrypted Secret Key:', enSecreetKey)
+    console.log('Region:', inputRegion)
+    console.log('Nick Name:', inputNickName)
 
     try {
-      const [statusCode, data] = await apiFetch(
-        '/api/iamsettings/validation/iam?accessKey=' +
-          encodeURIComponent(inputAccessKey) +
-          '&secretKey=' +
-          encodeURIComponent(inputSecretKey) +
-          '&region=' +
-          encodeURIComponent(inputRegion),
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            accesskey: inputAccessKey,
-            secretkey: inputSecretKey,
-            region: inputRegion,
-          }),
+      const [statusCode, data] = await apiFetch('/api/iamsettings/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      )
+        body: JSON.stringify({
+          accessKey: enAccessKey, // 키 이름을 CamelCase로 수정
+          secretKey: enSecreetKey, // 키 이름을 CamelCase로 수정
+          region: inputRegion,
+          nickName: inputNickName,
+        }),
+      })
+
       if (statusCode === 200) {
         console.log('데이터 추가 성공:', data)
+        alert('IAM 추가 성공')
       } else {
         console.log('데이터 추가 실패:', statusCode)
+        alert('IAM 추가 실패')
       }
     } catch (e) {
       console.error(e)
