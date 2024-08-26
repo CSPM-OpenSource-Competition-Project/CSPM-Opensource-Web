@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import ButtonLayer from '@/components/button/buttonLayer'
 ;('@/stores/selectStore')
 import { useSelectType } from '@/stores/selectStore'
+import apiFetch from '@/utils/fetchWrapper'
 
 export default function StartScanButton() {
   const { iAMSelected, groupSelected } = useSelectType()
@@ -21,17 +22,19 @@ export default function StartScanButton() {
 
   const scanStart = async () => {
     try {
-      const response = await fetch('resources', {
+      const [statusCode, response] = await apiFetch('/resource', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json; charset=utf-8',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(scanList),
       })
-      if (response.ok) {
+      if (response.ok && statusCode === 200) {
         const inner = await response.json()
         const data = inner
         setDataResult(data.message)
+        console.log(statusCode)
+        console.log(data)
       }
     } catch (error) {
       setDataResult('api 연결이 안됩니다.')
