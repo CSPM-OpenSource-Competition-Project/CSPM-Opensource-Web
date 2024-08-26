@@ -20,14 +20,17 @@ export default function AWSField() {
     setUserName,
   } = useSingUpFeild()
   const handleInfo = async () => {
+    const enAccessKey = encrypt(accessKey)
+    const enSecreetKey = encrypt(secretKey)
+    const enRegion = encrypt(region)
     try {
       const response = await fetch(
         '/api/account/validation/iam?accessKey=' +
-          encrypt(accessKey) +
+          encodeURIComponent(enAccessKey) + // 인코딩 적용+
           '&secretKey=' +
-          encrypt(secretKey) +
+          encodeURIComponent(enSecreetKey) +
           '&region=' +
-          encrypt(region),
+          encodeURIComponent(enRegion),
         {
           method: 'GET',
           headers: {

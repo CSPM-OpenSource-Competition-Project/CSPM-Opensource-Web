@@ -12,34 +12,19 @@ export default function ScanGraph() {
 
   const data = [
     {
-      country: 'AD',
-      'hot dog': 41,
-      'hot dogColor': 'hsl(124, 70%, 50%)',
-      burger: 144,
-      burgerColor: 'hsl(321, 70%, 50%)',
-      sandwich: 122,
-      sandwichColor: 'hsl(220, 70%, 50%)',
-      kebab: 134,
-      kebabColor: 'hsl(103, 70%, 50%)',
-      fries: 134,
-      friesColor: 'hsl(31, 70%, 50%)',
-      donut: 56,
-      donutColor: 'hsl(242, 70%, 50%)',
+      categroy: '전체',
+      count: 41,
+      countColor: 'hsl(124, 70%, 50%)',
     },
     {
-      country: 'AE',
-      'hot dog': 126,
-      'hot dogColor': 'hsl(26, 70%, 50%)',
-      burger: 137,
-      burgerColor: 'hsl(234, 70%, 50%)',
-      sandwich: 170,
-      sandwichColor: 'hsl(225, 70%, 50%)',
-      kebab: 176,
-      kebabColor: 'hsl(128, 70%, 50%)',
-      fries: 60,
-      friesColor: 'hsl(36, 70%, 50%)',
-      donut: 181,
-      donutColor: 'hsl(54, 70%, 50%)',
+      categroy: 'VPC 그룹',
+      count: 31,
+      countColor: 'hsl(321, 70%, 50%)',
+    },
+    {
+      categroy: '인스턴스 그룹',
+      count: 26,
+      countColor: 'hsl(220, 70%, 50%)',
     },
   ]
 
@@ -65,14 +50,14 @@ export default function ScanGraph() {
       <div className='h-full w-full'>
         <ResponsiveBar
           data={data}
-          keys={['hot dog', 'burger', 'sandwich', 'kebab', 'fries', 'donut']}
-          indexBy='country'
+          keys={['count']}
+          indexBy='categroy'
           margin={{ top: 50, right: 130, bottom: 80, left: 60 }}
           padding={0.3}
           groupMode='grouped'
           valueScale={{ type: 'linear' }}
           indexScale={{ type: 'band', round: true }}
-          colors={{ scheme: 'nivo' }}
+          colors={(bar) => bar.data.countColor}
           defs={[
             {
               id: 'dots',
@@ -117,7 +102,7 @@ export default function ScanGraph() {
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: 'country',
+            legend: '스캔',
             legendPosition: 'middle',
             legendOffset: 32,
             truncateTickAt: 0,
@@ -126,7 +111,7 @@ export default function ScanGraph() {
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: 'food',
+            legend: 'count',
             legendPosition: 'middle',
             legendOffset: -40,
             truncateTickAt: 0,
