@@ -12,12 +12,7 @@ import { useFilter, useSelectType } from '@/stores/selectStore'
 import apiFetch from '@/utils/fetchWrapper'
 import { useEffect } from 'react'
 
-interface Props {
-  iamName: string
-}
-
-type SetData = (data: Props[]) => void
-export default function SelectIAMBox(setData: SetData) {
+export default function SelectIAMBox() {
   const { iAMSelected, setIAMSelected } = useSelectType()
   const { iAMFilter, setIAMFilter } = useFilter()
 
@@ -33,19 +28,15 @@ export default function SelectIAMBox(setData: SetData) {
           'Content-Type': 'application/json',
         },
       })
-      console.log('safsdafsaff : ', data.iam)
       if (statusCode === 200) {
-        const inner = data
-        console.log('inner : ', inner)
+        console.log('Fetched IAM Data:', data)
 
-        if (inner.code === 0) {
-          const data = inner.result.data
-          const iamNameData = inner.result.iamName
-          setData(data)
-          setIAMFilter(iamNameData)
-        } else if (inner.code === 12) {
-          setData([])
-          setIAMFilter([])
+        const iamData = Array.isArray(data) ? data : data?.iamList || [] // 예:
+        if (Array.isArray(iamData) && iamData.every((item) => typeof item === 'string')) {
+          setIAMFilter(iamData)
+        } else {
+          console.error('Fetched data is not a valid string array:', data)
+          console.error('Fetched data is not a valid string array:', iamData)
         }
       }
     } catch (error) {
@@ -54,8 +45,8 @@ export default function SelectIAMBox(setData: SetData) {
   }
 
   useEffect(() => {
-    selectIamName
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    selectIamName() // 함수 호출
+    console.log('Current iAMFilter:', iAMFilter)
   }, [])
 
   return (
@@ -66,7 +57,7 @@ export default function SelectIAMBox(setData: SetData) {
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectItem value='none'>IAM 선택해</SelectItem>
+            <SelectItem value='none'>IAM 선택</SelectItem>
             {iAMFilter?.map((iam, index) => (
               <SelectItem id={`account-${index}-select`} key={index} value={iam}>
                 {iam}
