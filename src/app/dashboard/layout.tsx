@@ -7,15 +7,15 @@ export default function DashboardLayout({
   children: React.ReactNode
 }>) {
   return (
-    <div className='flex h-screen w-full flex-col'>
-      <div className='h-20 w-full'>
+    <div className='flex h-screen w-full flex-col overflow-hidden'>
+      <div className='top-0 flex h-20 w-full'>
         <Header />
       </div>
       <div className='flex h-full w-full flex-nowrap'>
         <div className='h-full w-[200px] flex-shrink-0'>
           <SideBar />
         </div>
-        <div className='h-full w-full p-4'>{children}</div>
+        <div className='h-full w-full overflow-y-hidden p-4'>{children}</div>
       </div>
     </div>
   )

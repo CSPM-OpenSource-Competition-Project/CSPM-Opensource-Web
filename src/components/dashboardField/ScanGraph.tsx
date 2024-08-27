@@ -1,28 +1,42 @@
 'use client'
+import { useGroupFeild } from '@/stores/groupStore'
+import apiFetch from '@/utils/fetchWrapper'
 import BarChart from '@image/icons/barchart.svg'
-import { useState } from 'react'
 import { ResponsiveBar } from '@nivo/bar'
+import { useState } from 'react'
+
+interface groupData {
+  category: string
+  count: number
+  countColor: string
+}
 
 export default function ScanGraph() {
-  const [select, setSelect] = useState('day')
+  const { groupName } = useGroupFeild()
+  const [graphData, setGraphData] = useState<groupData[]>([])
+  const dataFetch = async () => {
+    const [statusCode, data] = await apiFetch('', {
+      method: 'GET',
+      headers: {},
+    })
 
-  const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelect(event.target.value)
+    if (statusCode === 200) {
+      setGraphData(data)
+    }
   }
-
   const data = [
     {
-      categroy: '전체',
+      category: '전체',
       count: 41,
       countColor: 'hsl(124, 70%, 50%)',
     },
     {
-      categroy: 'VPC 그룹',
+      category: 'VPC 그룹',
       count: 31,
       countColor: 'hsl(321, 70%, 50%)',
     },
     {
-      categroy: '인스턴스 그룹',
+      category: '인스턴스 그룹',
       count: 26,
       countColor: 'hsl(220, 70%, 50%)',
     },
@@ -30,29 +44,18 @@ export default function ScanGraph() {
 
   return (
     <div className='h-full w-full rounded-md bg-white p-4 shadow-lg'>
-      <div className='flex h-8 w-full justify-between'>
+      <div className='flex h-8 w-full'>
         <div className='flex gap-1'>
           <BarChart className='h-7 w-7' />
           <span className='text-xl'>스캔 그래프</span>
-        </div>
-        <div>
-          <select
-            className='h-8 w-20 rounded-md border border-gray-400 px-1'
-            value={select}
-            onChange={handleSelect}
-          >
-            <option value='day'>day</option>
-            <option value='weak'>weak</option>
-            <option value='month'>month</option>
-          </select>
         </div>
       </div>
       <div className='h-full w-full'>
         <ResponsiveBar
           data={data}
           keys={['count']}
-          indexBy='categroy'
-          margin={{ top: 50, right: 130, bottom: 80, left: 60 }}
+          indexBy='category'
+          margin={{ top: 50, right: 60, bottom: 80, left: 60 }}
           padding={0.3}
           groupMode='grouped'
           valueScale={{ type: 'linear' }}
@@ -123,30 +126,6 @@ export default function ScanGraph() {
             modifiers: [['darker', 1.6]],
           }}
           animate={false}
-          legends={[
-            {
-              dataFrom: 'keys',
-              anchor: 'bottom-right',
-              direction: 'column',
-              justify: false,
-              translateX: 120,
-              translateY: 0,
-              itemsSpacing: 2,
-              itemWidth: 100,
-              itemHeight: 20,
-              itemDirection: 'left-to-right',
-              itemOpacity: 0.85,
-              symbolSize: 20,
-              effects: [
-                {
-                  on: 'hover',
-                  style: {
-                    itemOpacity: 1,
-                  },
-                },
-              ],
-            },
-          ]}
           role='application'
           ariaLabel='Nivo bar chart demo'
           barAriaLabel={(e) => e.id + ': ' + e.formattedValue + ' in country: ' + e.indexValue}

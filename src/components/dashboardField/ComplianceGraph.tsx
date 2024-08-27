@@ -121,10 +121,10 @@ export default function ComplianceGraph() {
           </select>
         </div>
       </div>
-      <div className='h-full w-full'>
+      <div className='h-[85%] w-full'>
         <ResponsiveLine
           data={data}
-          margin={{ top: 50, right: 110, bottom: 70, left: 60 }}
+          margin={{ top: 50, right: 110, bottom: 20, left: 60 }}
           xScale={{ type: 'point' }}
           yScale={{
             type: 'linear',
