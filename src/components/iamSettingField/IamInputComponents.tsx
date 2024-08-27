@@ -39,8 +39,10 @@ export default function IamInputComponents() {
         console.log('검증 성공:', data)
         setState(1)
       } else if (statusCode === 403) {
+        //권한
         setState(2)
       } else if (statusCode === 409) {
+        //중복
         setState(3)
       } else {
         setState(4)
@@ -125,7 +127,7 @@ export default function IamInputComponents() {
           />
         </div>
         <div className='flex flex-col space-y-2'>
-          <span>Ncik Name</span>
+          <span>Nick Name</span>
           <InputLayout
             setType={'text'}
             setName={'set_nickname'}
@@ -135,6 +137,7 @@ export default function IamInputComponents() {
           />
         </div>
       </div>
+
       <div className='ml-15 flex flex-row justify-center'>
         <p className='mt-4'>
           <button
