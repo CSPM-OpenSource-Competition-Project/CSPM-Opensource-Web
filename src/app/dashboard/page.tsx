@@ -1,8 +1,9 @@
+import MainDashboard from '@/components/dashboardField/mainDashboard'
+
 export default function DashBoard() {
   return (
-    <div className='bg-white'>
-      dashobord dndndndndndndnndndndndnndndndndn
-      <button>클릭</button>
+    <div className='h-full w-full'>
+      <MainDashboard />
     </div>
   )
 }

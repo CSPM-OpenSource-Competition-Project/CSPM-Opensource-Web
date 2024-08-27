@@ -3,7 +3,7 @@ import ResourceTable from '@/components/pageComponents/resourcePage/resourceTabl
 
 export default function Scan() {
   return (
-    <div className='flex h-screen w-full rounded bg-white p-3'>
+    <div className='flex h-full w-full rounded bg-white p-3'>
       <div className='mt-4'>
         <p>스캔 페이지</p>
 
