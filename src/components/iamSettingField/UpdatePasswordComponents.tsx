@@ -16,27 +16,25 @@ export default function UpdatePasswordComponents() {
     // 비밀번호와 확인 비밀번호가 일치하는지 확인
     if (inputPassword !== inputSecondPassword) {
       console.error('비밀번호가 일치하지 않습니다.')
+      alert('비밀번호가 일치 하지 않습니다.')
       return
     }
 
     try {
-      const [statusCode, data] = await apiFetch('/api/', {
+      const [statusCode, data] = await apiFetch(`/api/iamsettings/password/${inputPassword}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          password: inputPassword,
-          secondPassword: inputSecondPassword,
-        }),
       })
       if (statusCode === 200) {
         console.log('비밀번호가 성공적으로 변경되었습니다:', data)
-        // 필요시, 성공 후 리다이렉션
-        router.push('/success') // 예: 성공 페이지로 이동
+        alert('비밀번호가 변경되었습니다.')
+        router.push('/dashboard')
       }
     } catch (e) {
       console.error('비밀번호 변경 중 오류 발생:', e)
+      alert('비밀번호 변경에 실패했습니다.')
     }
   }
 
@@ -63,7 +61,7 @@ export default function UpdatePasswordComponents() {
         <p className='mt-4'>
           <button
             type='submit'
-            className='h-12 w-20 rounded-lg bg-blue-500 text-lg font-bold text-white' // 오타 수정
+            className='h-12 w-20 rounded-lg bg-blue-500 text-lg font-bold text-white'
           >
             변경
           </button>
