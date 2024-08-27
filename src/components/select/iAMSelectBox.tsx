@@ -35,7 +35,6 @@ export default function SelectIAMBox() {
         if (Array.isArray(iamData) && iamData.every((item) => typeof item === 'string')) {
           setIAMFilter(iamData)
         } else {
-          console.error('Fetched data is not a valid string array:', data)
           console.error('Fetched data is not a valid string array:', iamData)
         }
       }
@@ -47,6 +46,7 @@ export default function SelectIAMBox() {
   useEffect(() => {
     selectIamName() // 함수 호출
     console.log('Current iAMFilter:', iAMFilter)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
