@@ -5,20 +5,22 @@ import IAMSelectBox from '@/components/select/iAMSelectBox'
 import apiFetch from '@/utils/fetchWrapper'
 
 export default function IamDelete() {
-  const [nickname, setnickname] = useState('')
+  const [nickname, setNickname] = useState('')
+
+  const handleIAMChange = (selectedIAM: string) => {
+    setNickname(selectedIAM)
+  }
 
   const handleDelete = async (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
-
+    console.log('선택 IAM:', nickname)
     try {
       const [statusCode, data] = await apiFetch(`/api/iamsettings`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          nickname: nickname,
-        }),
+        body: JSON.stringify([{ nickname: nickname }]),
       })
       if (statusCode === 200) {
         console.log('삭제 성공:', data)
@@ -34,10 +36,10 @@ export default function IamDelete() {
 
   return (
     <div className='ml-15 flex flex-row justify-center gap-4'>
-      <IAMSelectBox />
+      <IAMSelectBox onSelectChange={handleIAMChange} /> {/* onSelectChange 전달 확인 */}
       <button
         onClick={handleDelete}
-        type='button' // 이 부분을 수정
+        type='button'
         className='mt-7 h-12 w-20 rounded-lg bg-blue-500 text-lg font-bold text-white'
       >
         삭제

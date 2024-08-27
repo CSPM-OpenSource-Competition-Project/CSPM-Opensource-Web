@@ -1,5 +1,4 @@
 'use client'
-
 import {
   Select,
   SelectTrigger,
@@ -12,12 +11,22 @@ import { useFilter, useSelectType } from '@/stores/selectStore'
 import apiFetch from '@/utils/fetchWrapper'
 import { useEffect } from 'react'
 
-export default function SelectIAMBox() {
+interface IAMSelectBoxProps {
+  onSelectChange: (value: string) => void // 부모로 전달할 함수 타입 정의
+}
+
+export default function IAMSelectBox({ onSelectChange }: IAMSelectBoxProps) {
   const { iAMSelected, setIAMSelected } = useSelectType()
   const { iAMFilter, setIAMFilter } = useFilter()
 
   const handleIAMChange = (value: string) => {
-    setIAMSelected(value === 'none' ? '' : value)
+    const selectedValue = value === 'none' ? '' : value
+    setIAMSelected(selectedValue)
+    if (typeof onSelectChange === 'function') {
+      onSelectChange(selectedValue) // 부모로 선택된 값 전달
+    } else {
+      console.error('onSelectChange is not a function')
+    }
   }
 
   const selectIamName = async () => {
@@ -29,9 +38,7 @@ export default function SelectIAMBox() {
         },
       })
       if (statusCode === 200) {
-        console.log('Fetched IAM Data:', data)
-
-        const iamData = Array.isArray(data) ? data : data?.iamList || [] // 예:
+        const iamData = Array.isArray(data) ? data : data?.iamList || []
         if (Array.isArray(iamData) && iamData.every((item) => typeof item === 'string')) {
           setIAMFilter(iamData)
         } else {
@@ -44,9 +51,7 @@ export default function SelectIAMBox() {
   }
 
   useEffect(() => {
-    selectIamName() // 함수 호출
-    console.log('Current iAMFilter:', iAMFilter)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    selectIamName()
   }, [])
 
   return (
