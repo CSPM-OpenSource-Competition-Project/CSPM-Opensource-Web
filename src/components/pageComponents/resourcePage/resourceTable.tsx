@@ -51,7 +51,7 @@ export default function TableComponent() {
             <ResourceTableRow key={index} index={index} listIndex={listIndex} />
           ))
         ) : (
-          <div className='mt-4 flex items-center justify-center'>리스트가 없습니다.</div>
+          <div className='mt-4 flex items-center justify-center'>리스트가 없습니다!!</div>
         )}
       </div>
       <Pagination />
