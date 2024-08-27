@@ -3,44 +3,61 @@ import { useGroupFeild } from '@/stores/groupStore'
 import apiFetch from '@/utils/fetchWrapper'
 import BarChart from '@image/icons/barchart.svg'
 import { ResponsiveBar } from '@nivo/bar'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-interface groupData {
+interface BarDatum {
   category: string
   count: number
   countColor: string
+  [key: string]: any
 }
 
 export default function ScanGraph() {
   const { groupName } = useGroupFeild()
-  const [graphData, setGraphData] = useState<groupData[]>([])
+  const [graphData, setGraphData] = useState<BarDatum[]>([])
   const dataFetch = async () => {
-    const [statusCode, data] = await apiFetch('', {
+    const [statusCode, data] = await apiFetch(`/api/dashboard/graph/${groupName}`, {
       method: 'GET',
       headers: {},
     })
 
     if (statusCode === 200) {
       setGraphData(data)
+      const formattedData = data.map((index: BarDatum) => ({
+        category: index.category,
+        count: index.count,
+        countColor: index.countColor,
+      }))
+      setGraphData(formattedData)
+    }
+    if (statusCode === 201) {
+      setGraphData([])
     }
   }
-  const data = [
-    {
-      category: '전체',
-      count: 41,
-      countColor: 'hsl(124, 70%, 50%)',
-    },
-    {
-      category: 'VPC 그룹',
-      count: 31,
-      countColor: 'hsl(321, 70%, 50%)',
-    },
-    {
-      category: '인스턴스 그룹',
-      count: 26,
-      countColor: 'hsl(220, 70%, 50%)',
-    },
-  ]
+  // const data = [
+  //   {
+  //     category: '전체',
+  //     count: 41,
+  //     countColor: 'hsl(50, 20%, 70%)',
+  //   },
+  //   {
+  //     category: 'VPC 그룹',
+  //     count: 31,
+  //     countColor: 'hsl(321, 70%, 50%)',
+  //   },
+  //   {
+  //     category: '인스턴스 그룹',
+  //     count: 26,
+  //     countColor: 'hsl(220, 70%, 50%)',
+  //   },
+  //]
+  useEffect(() => {
+    dataFetch()
+  }, [])
+
+  useEffect(() => {
+    dataFetch()
+  }, [groupName])
 
   return (
     <div className='h-full w-full rounded-md bg-white p-4 shadow-lg'>
@@ -50,9 +67,10 @@ export default function ScanGraph() {
           <span className='text-xl'>스캔 그래프</span>
         </div>
       </div>
+
       <div className='h-full w-full'>
         <ResponsiveBar
-          data={data}
+          data={graphData}
           keys={['count']}
           indexBy='category'
           margin={{ top: 50, right: 60, bottom: 80, left: 60 }}
