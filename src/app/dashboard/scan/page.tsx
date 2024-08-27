@@ -6,6 +6,7 @@ export default function Scan() {
     <div className='flex h-full w-full rounded bg-white p-3'>
       <div className='mt-4'>
         <p>스캔 페이지</p>
+
         <MultiFilterMenuBar />
         <ResourceTable />
       </div>

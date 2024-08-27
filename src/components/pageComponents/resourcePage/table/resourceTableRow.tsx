@@ -7,12 +7,12 @@ interface Props {
   service: string
 }
 
-interface TableProps {
+interface TableRowProps {
   index: number
   listIndex: Props
 }
 
-export default function ResourceTableRow({ index, listIndex }: TableProps) {
+export default function ResourceTableRow({ index, listIndex }: TableRowProps) {
   return (
     <div
       key={index}
@@ -29,9 +29,6 @@ export default function ResourceTableRow({ index, listIndex }: TableProps) {
       </div>
       <div className='col-span-2 flex h-full w-full items-center overflow-hidden'>
         {listIndex.resourceId}
-      </div>
-      <div className='col-span-2 flex h-full w-full items-center overflow-hidden'>
-        {listIndex.service}
       </div>
       <div className='col-span-2 flex h-full w-full items-center overflow-hidden'>
         {listIndex.service}

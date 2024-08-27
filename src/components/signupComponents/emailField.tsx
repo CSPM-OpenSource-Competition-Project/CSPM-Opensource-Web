@@ -2,7 +2,6 @@
 
 import InputLayout from '@/components/ui/inputLayout'
 import { useSingUpFeild } from '@/stores/useSignUpStore'
-import { encrypt } from '@/utils/crypto'
 import { useState } from 'react'
 
 export default function EmailField() {

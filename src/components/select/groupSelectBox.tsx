@@ -8,14 +8,54 @@ import {
   SelectItem,
   SelectValue,
 } from '@/components/ui/select'
-import { useSelectType } from '@/stores/selectStore'
+import { useFilter, useSelectType } from '@/stores/selectStore'
+import { useEffect } from 'react'
+import apiFetch from '@/utils/fetchWrapper'
 
-export default function SelectGroupBox() {
+interface Props {
+  iamName: string
+}
+
+type SetData = (data: Props[]) => void
+export default function SelectGroupBox(setData: SetData) {
   const { groupSelected, setGroupSelected } = useSelectType()
+  const { scanGroupFilter, setScanGroupFilter } = useFilter()
 
   const handleGroupChange = (value: string) => {
     setGroupSelected(value === 'none' ? '' : value)
   }
+
+  const selectScanGroup = async () => {
+    try {
+      const [statusCode, data] = await apiFetch('/resource/iam-scanGroup', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      if (statusCode === 200) {
+        const inner = data
+        console.log('inner : ', inner)
+
+        if (inner.code === 0) {
+          const data = inner.result.data
+          const iamNameData = inner.result.iamName
+          setData(data)
+          setScanGroupFilter(iamNameData)
+        } else if (inner.code === 12) {
+          setData([])
+          setScanGroupFilter([])
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching IAM resources:', error)
+    }
+  }
+
+  useEffect(() => {
+    selectScanGroup
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className='mt-8 h-10 w-[60%] items-center border-2 bg-white text-black'>
@@ -25,18 +65,12 @@ export default function SelectGroupBox() {
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectItem value='none'>Group 선택</SelectItem>
-            <SelectItem value='VPC'>VPC</SelectItem>
-            <SelectItem value='Subnet'>Subnet</SelectItem>
-            <SelectItem value='RouteTable'>RouteTable</SelectItem>
-            <SelectItem value='InternetGateWay'>InternetGateway</SelectItem>
-            <SelectItem value='Instance'>Instance</SelectItem>
-            <SelectItem value='ENI'>ENI</SelectItem>
-            <SelectItem value='EBS'>EBS</SelectItem>
-            <SelectItem value='S3'>S3</SelectItem>
-            <SelectItem value='SecurityGroup'>SecurityGroup</SelectItem>
-            <SelectItem value='IAM'>IAM</SelectItem>
-            <SelectItem value='RDS'>RDS</SelectItem>
+            <SelectItem value='none'>Group 선택해</SelectItem>
+            {scanGroupFilter?.map((group, index) => (
+              <SelectItem id={`account-${index}-select`} key={index} value={group}>
+                {group}
+              </SelectItem>
+            ))}
           </SelectGroup>
         </SelectContent>
       </Select>

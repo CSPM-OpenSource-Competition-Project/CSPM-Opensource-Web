@@ -13,6 +13,7 @@ export default function DashboardLayout({
       </div>
       <div className='flex h-full w-full flex-nowrap'>
         <div className='h-full w-[200px] flex-shrink-0'>
+          {/* 자식 컴포넌트가 차지할 공간을 설정합니다 */}
           <SideBar />
         </div>
         <div className='h-full w-full overflow-y-hidden p-4'>{children}</div>

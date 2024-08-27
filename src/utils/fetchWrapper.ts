@@ -34,7 +34,9 @@ const apiFetch = async (url: string, options?: FetchOptions): Promise<[number, a
       },
       credentials: 'include', // 쿠키를 포함하기 위해
     })
+
     if (!response.ok) {
+      console.log(response.status)
       // 401 에러 발생 시 서버에서 자동으로 refreshToken 처리
       if (response.status === 401) {
         // 새로운 accessToken을 서버에서 재발급 받음
@@ -46,9 +48,12 @@ const apiFetch = async (url: string, options?: FetchOptions): Promise<[number, a
             headersContent,
           },
         })
+        console.log('재발급')
 
         //재발급 요청 결과
         if (!retryResponse.ok) {
+          throw new Error('Retry request failed')
+          console.error('재발급 실패')
           console.error('재발급 실패')
         }
 
@@ -68,8 +73,11 @@ const apiFetch = async (url: string, options?: FetchOptions): Promise<[number, a
           },
         })
 
+        console.log('세번째 fetch')
         if (!finalResponse.ok) {
           console.error('재발급 후 다시 fetch 진행 실패')
+          console.log('3fetch 실패')
+          throw new Error('Final request failed')
         }
 
         console.log('정상적으로 fetch 진행됨')
@@ -81,6 +89,8 @@ const apiFetch = async (url: string, options?: FetchOptions): Promise<[number, a
     }
 
     const data = await response.json()
+    console.log('data1 : ', data)
+    console.log('data2 : ', typeof data)
     return [response.status, data]
   } catch (error) {
     console.error('API 요청 중 오류 발생:', error)
