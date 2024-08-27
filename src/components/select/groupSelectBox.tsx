@@ -27,14 +27,14 @@ export default function SelectGroupBox(setData: SetData) {
 
   const selectScanGroup = async () => {
     try {
-      const [statusCode, response] = await apiFetch('/resource/scanGroup', {
+      const [statusCode, data] = await apiFetch('/resource/iam-scanGroup', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
       })
-      if (response.ok && statusCode === 200) {
-        const inner = await response.json()
+      if (statusCode === 200) {
+        const inner = data
         console.log('inner : ', inner)
 
         if (inner.code === 0) {

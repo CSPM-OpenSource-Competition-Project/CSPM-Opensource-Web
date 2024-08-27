@@ -27,14 +27,15 @@ export default function SelectIAMBox(setData: SetData) {
 
   const selectIamName = async () => {
     try {
-      const [statusCode, response] = await apiFetch('/resource/iam', {
+      const [statusCode, data] = await apiFetch('/resource/iam-scanGroup', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
       })
-      if (response.ok && statusCode === 200) {
-        const inner = await response.json()
+      console.log('safsdafsaff : ', data.iam)
+      if (statusCode === 200) {
+        const inner = data
         console.log('inner : ', inner)
 
         if (inner.code === 0) {
