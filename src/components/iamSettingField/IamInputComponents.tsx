@@ -79,6 +79,7 @@ export default function IamInputComponents() {
       if (statusCode === 200) {
         console.log('데이터 추가 성공:', data)
         alert('IAM 추가 성공')
+        router.push('/dashboard')
       } else {
         console.log('데이터 추가 실패:', statusCode)
         alert('IAM 추가 실패')
