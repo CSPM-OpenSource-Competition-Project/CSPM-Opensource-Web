@@ -43,9 +43,9 @@ export default function IamInputComponents() {
         setState(2)
       } else if (statusCode === 409) {
         //중복
-        setState(3)
-      } else {
         setState(4)
+      } else {
+        setState(3)
       }
     } catch (e) {
       console.error(e)
