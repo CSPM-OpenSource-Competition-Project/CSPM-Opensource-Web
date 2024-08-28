@@ -50,7 +50,7 @@ export default function SelectIAMBox() {
   }, [])
 
   return (
-    <div className='mt-8 h-10 w-[60%] items-center border-2 bg-white text-black'>
+    <div className='h-10 w-[60%] items-center border-2 bg-white text-black'>
       <Select value={iAMSelected === '' ? 'none' : iAMSelected} onValueChange={handleIAMChange}>
         <SelectTrigger>
           <SelectValue placeholder='IAM 선택' />

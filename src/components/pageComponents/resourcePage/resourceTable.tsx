@@ -1,11 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import ResourceTableRow from '@/components/pageComponents/resourcePage/table/resourceTableRow'
 import Pagination from '@/components/pagination'
 import TableHead from '@/components/pageComponents/resourcePage/table/resourceTableHead'
 import { usePagination } from '@/stores/paginationStore'
 import StartScanButton from '@/components/button/startScanButton'
+import ResourceTableRow from '@/components/pageComponents/resourcePage/table/resourceTableRow'
 
 // 스캔 시간, AccountID, 리소스, 리소스ID, Service 리스트 조회
 interface Props {
@@ -18,6 +18,7 @@ interface Props {
 export default function TableComponent() {
   const [data, setData] = useState<Props[]>([]) // 목록에 가져올 데이터
   StartScanButton(setData)
+  const [newSelect, setNewSelect] = useState(true)
 
   // 현재 페이지, 페이지당 표시할 아이템 수, 데이터의 총 길이,
   const { currentPage, itemsPerPage, setDataLength, setCurrentPage, setItemsPerPage } =
@@ -26,6 +27,9 @@ export default function TableComponent() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
   const currentItems = data?.slice(indexOfFirstItem, indexOfLastItem)
 
+  const handlerSelectNew = () => {
+    setNewSelect(!newSelect)
+  }
   useEffect(() => {
     setCurrentPage(1)
     setDataLength(data.length)
@@ -34,18 +38,27 @@ export default function TableComponent() {
   }, [data])
 
   return (
-    <div className='mt-3 h-auto w-full overflow-hidden'>
-      <div className='flex h-[35px] w-full items-center gap-4 text-sm text-black'>
+    <div className='flex h-full w-[70%] flex-col justify-start rounded-md bg-white p-4 shadow-lg'>
+      <div className='mb-2 flex w-full items-center justify-between gap-4 text-sm text-black'>
         <span>Total : {data.length}</span>
-        {/* <span>Total : {data?.length ?? 0}</span> */}
+        <div className='flex gap-2'>
+          <button
+            onClick={handlerSelectNew}
+            className={`${newSelect ? 'text-blue-500' : 'text-black'}`}
+          >
+            New
+          </button>
+          <span>|</span>
+          <button
+            onClick={handlerSelectNew}
+            className={`${newSelect ? 'text-black' : 'text-blue-500'}`}
+          >
+            History
+          </button>
+        </div>
       </div>
-
       <TableHead />
-
-      {/* TableRow는 map 사용해서 반복하여 데이터 크기만큼 뽑아 내야 함. */}
-      {/* <ResourceTableRow index={index} listIndex={listIndex} /> */}
-      <div className='h-[560px]'>
-        {currentItems?.length ?? 0}
+      <div className='h-auto'>
         {currentItems.length > 0 ? (
           currentItems.map((listIndex, index) => (
             <ResourceTableRow key={index} index={index} listIndex={listIndex} />
