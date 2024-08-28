@@ -108,6 +108,7 @@ export default function GroupCheckBox() {
     } else {
       setGroupDisable(true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [groupIndex])
 
   return (

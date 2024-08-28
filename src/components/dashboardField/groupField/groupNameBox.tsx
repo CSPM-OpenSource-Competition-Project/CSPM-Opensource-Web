@@ -95,6 +95,7 @@ export default function GroupNameBox() {
       setAfterGroupName(groupName)
       setInputGroupName(groupList[groupIndex].resourceGroupName)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [groupIndex])
 
   useEffect(() => {

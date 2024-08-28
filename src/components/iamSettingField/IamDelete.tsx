@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import Pen from '@image/icons/pen.svg'
 import {
   Select,
   SelectTrigger,
@@ -11,6 +12,7 @@ import {
 } from '@/components/ui/select'
 import apiFetch from '@/utils/fetchWrapper'
 import { useRouter } from 'next/navigation'
+import { useSettingTrigger } from '@/stores/settingFetchTrigger'
 
 interface IAMSelectBoxProps {
   onSelect: (value: string) => void
@@ -18,7 +20,8 @@ interface IAMSelectBoxProps {
 
 function IAMSelectBox({ onSelect }: IAMSelectBoxProps) {
   const [iamOptions, setIamOptions] = useState<string[]>([])
-
+  const { fetchTrigger } = useSettingTrigger()
+  console.log()
   const selectIamName = async () => {
     try {
       const [statusCode, data] = await apiFetch('/resource/iam-scanGroup', {
@@ -44,17 +47,18 @@ function IAMSelectBox({ onSelect }: IAMSelectBoxProps) {
 
   useEffect(() => {
     selectIamName()
-  }, [])
+  }, [, fetchTrigger])
 
+  const defaultIam = 'default'
   return (
     <Select onValueChange={onSelect}>
-      <SelectTrigger className='w-48 border border-[#B0B3B8]'>
+      <SelectTrigger className='w-[400px] border border-[#B0B3B8]'>
         <SelectValue placeholder='IAM 선택' />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           {iamOptions.map((iam) => (
-            <SelectItem key={iam} value={iam}>
+            <SelectItem key={iam} value={iam} disabled={iam === defaultIam}>
               {iam}
             </SelectItem>
           ))}
@@ -65,8 +69,9 @@ function IAMSelectBox({ onSelect }: IAMSelectBoxProps) {
 }
 
 export default function IamDelete() {
-  const [nickname, setNickname] = useState('')
-  const router = useRouter()
+  const [resultState, seResultState] = useState(0)
+  const [nickname, setNickname] = useState('default')
+  const { setFetchTrigger } = useSettingTrigger()
 
   const handleDelete = async (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
@@ -85,8 +90,8 @@ export default function IamDelete() {
       })
       if (statusCode === 200) {
         console.log('삭제 성공:', data)
-        alert('IAM 삭제 성공')
-        router.push('/dashboard')
+        setNickname('default')
+        setFetchTrigger()
       } else {
         console.log('삭제 실패:', statusCode)
         alert('IAM 삭제 실패')
@@ -98,15 +103,27 @@ export default function IamDelete() {
   }
 
   return (
-    <div className='ml-15 flex flex-row items-center justify-center gap-4'>
-      <IAMSelectBox onSelect={setNickname} />
-      <button
-        onClick={handleDelete}
-        type='button'
-        className='h-12 w-20 rounded-lg bg-blue-500 text-lg font-bold text-white'
-      >
-        삭제
-      </button>
+    <div className='flex flex-col gap-4 rounded-md bg-white p-4 shadow-lg'>
+      <div className='flex gap-1'>
+        <Pen className='h-7 w-7' />
+        <span className='h-12 w-full text-xl'>IAM 삭제하기</span>
+      </div>
+
+      <div className='flex flex-col items-center justify-center'>
+        <IAMSelectBox onSelect={setNickname} />
+        <button
+          onClick={handleDelete}
+          type='button'
+          className='mt-4 h-12 w-20 rounded-md border border-gray-300 px-2 text-lg text-black shadow hover:bg-gray-500'
+        >
+          삭제
+        </button>
+
+        <p className='mt-4 flex h-8'>
+          <span className={`${resultState === 1 ? '' : 'hidden'}`}>IAM 삭제 성공</span>
+          <span className={`${resultState === 2 ? '' : 'hidden'} text-red-500`}>IAM 삭제 실패</span>
+        </p>
+      </div>
     </div>
   )
 }
