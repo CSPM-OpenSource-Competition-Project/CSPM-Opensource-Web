@@ -17,9 +17,15 @@ interface GroupSelectBoxProps {
   onSelect: (value: string) => void
 }
 
-export default function SelectGroupBox({ onSelect }: GroupSelectBoxProps) {
+export default function SelectGroupBox() {
   const [groupOptions, setGorupOptions] = useState<string[]>([])
   const { fetchTrigger } = useSettingTrigger()
+
+  const handleIAMChange = (value: string) => {
+    handleIAMChange(value === 'none' ? '' : value)
+  }
+
+
 
   const selectGroupName = async () => {
     try {
@@ -49,7 +55,7 @@ export default function SelectGroupBox({ onSelect }: GroupSelectBoxProps) {
   }, [, fetchTrigger])
 
   return (
-    <Select onValueChange={onSelect}>
+    <Select onValueChange={handleIAMChange}>
       <SelectTrigger className='w-[400px] border border-[#B0B3B8]'>
         <SelectValue placeholder='Gorup 선택' />
       </SelectTrigger>
