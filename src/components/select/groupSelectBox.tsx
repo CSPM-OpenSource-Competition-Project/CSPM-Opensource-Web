@@ -9,42 +9,39 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { useFilter, useSelectType } from '@/stores/selectStore'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import apiFetch from '@/utils/fetchWrapper'
+import { useSettingTrigger } from '@/stores/settingFetchTrigger'
 
-interface Props {
-  iamName: string
+interface GroupSelectBoxProps {
+  onSelect: (value: string) => void
 }
 
-type SetData = (data: Props[]) => void
-export default function SelectGroupBox(setData: SetData) {
-  const { groupSelected, setGroupSelected } = useSelectType()
-  const { scanGroupFilter, setScanGroupFilter } = useFilter()
+export default function SelectGroupBox() {
+  const [groupOptions, setGorupOptions] = useState<string[]>([])
+  const { fetchTrigger } = useSettingTrigger()
+  const [groupSelect, setGroupSelct] = useState('')
 
-  const handleGroupChange = (value: string) => {
-    setGroupSelected(value === 'none' ? '' : value)
+  const handlegroupChange = (value: string) => {
+    setGroupSelct(value === 'none' ? '' : value)
   }
 
-  const selectScanGroup = async () => {
+  const selectGroupName = async () => {
     try {
-      const [statusCode, data] = await apiFetch('/resource/iam-scanGroup', {
+      const [statusCode, data] = await apiFetch('/resource/scangroup', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
       })
       if (statusCode === 200) {
-        const inner = data
-        console.log('inner : ', inner)
+        console.log('Fetched IAM Data:', data)
 
-        if (inner.code === 0) {
-          const data = inner.result.data
-          const iamNameData = inner.result.iamName
-          setData(data)
-          setScanGroupFilter(iamNameData)
-        } else if (inner.code === 12) {
-          setData([])
-          setScanGroupFilter([])
+        const groupData = Array.isArray(data) ? data : data?.groupList || []
+        if (Array.isArray(groupData) && groupData.every((item) => typeof item === 'string')) {
+          setGorupOptions(groupData)
+        } else {
+          console.error('Fetched data is not a valid string array:', groupData)
         }
       }
     } catch (error) {
@@ -53,21 +50,20 @@ export default function SelectGroupBox(setData: SetData) {
   }
 
   useEffect(() => {
-    selectScanGroup
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    selectGroupName()
+  }, [, fetchTrigger])
 
   return (
     <div className='h-10 w-[60%] items-center border-2 bg-white text-black'>
-      <Select value={groupSelected} onValueChange={handleGroupChange}>
+      <Select value={groupSelect} onValueChange={handlegroupChange}>
         <SelectTrigger>
           <SelectValue placeholder='Group 선택' />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
             <SelectItem value='none'>Group 선택해</SelectItem>
-            {scanGroupFilter?.map((group, index) => (
-              <SelectItem id={`account-${index}-select`} key={index} value={group}>
+            {groupOptions.map((group) => (
+              <SelectItem id={group} key={group} value={group}>
                 {group}
               </SelectItem>
             ))}
