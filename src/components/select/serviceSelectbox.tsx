@@ -18,7 +18,7 @@ export default function SelectServiceBox() {
   }
 
   return (
-    <div className='mt-8 h-10 w-[60%] items-center border-2 bg-white text-black'>
+    <div className='mt-4 h-10 w-[60%] items-center border-2 bg-white text-black'>
       <Select value={serviceSelected} onValueChange={handleServiceChange}>
         <SelectTrigger>
           <SelectValue placeholder='Service 선택' />

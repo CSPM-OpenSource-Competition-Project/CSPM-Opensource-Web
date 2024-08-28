@@ -3,13 +3,9 @@ import ResourceTable from '@/components/pageComponents/resourcePage/resourceTabl
 
 export default function Scan() {
   return (
-    <div className='flex h-full w-full rounded bg-white p-3'>
-      <div className='mt-4'>
-        <p>스캔 페이지</p>
-
-        <MultiFilterMenuBar />
-        <ResourceTable />
-      </div>
+    <div className='flex h-full w-full gap-4 rounded p-4'>
+      <MultiFilterMenuBar />
+      <ResourceTable />
     </div>
   )
 }

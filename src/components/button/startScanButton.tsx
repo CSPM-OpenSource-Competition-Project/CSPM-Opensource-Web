@@ -68,7 +68,7 @@ export default function StartScanButton(setData: SetData) {
 
   return (
     // 스캔 시작 버튼
-    <div className='mt-8'>
+    <div className=''>
       <ButtonLayer buttonStyle='bg-[#002865]' childText='스캔 시작' method={scanStart} />
       {/* {dataResult.length > 0 && <TableComponent data={dataResult} />} */}
       {dataResult.length > 0 && <TableComponent />}
