@@ -48,7 +48,7 @@ function IAMSelectBox({ onSelect }: IAMSelectBoxProps) {
 
   return (
     <Select onValueChange={onSelect}>
-      <SelectTrigger className='w-48'>
+      <SelectTrigger className='w-48 border border-[#B0B3B8]'>
         <SelectValue placeholder='IAM 선택' />
       </SelectTrigger>
       <SelectContent>
