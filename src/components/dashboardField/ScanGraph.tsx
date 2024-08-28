@@ -20,6 +20,7 @@ export default function ScanGraph() {
       method: 'GET',
       headers: {},
     })
+    console.log(statusCode)
 
     if (statusCode === 200) {
       setGraphData(data)
@@ -34,29 +35,15 @@ export default function ScanGraph() {
       setGraphData([])
     }
   }
-  // const data = [
-  //   {
-  //     category: '전체',
-  //     count: 41,
-  //     countColor: 'hsl(50, 20%, 70%)',
-  //   },
-  //   {
-  //     category: 'VPC 그룹',
-  //     count: 31,
-  //     countColor: 'hsl(321, 70%, 50%)',
-  //   },
-  //   {
-  //     category: '인스턴스 그룹',
-  //     count: 26,
-  //     countColor: 'hsl(220, 70%, 50%)',
-  //   },
-  //]
+
   useEffect(() => {
     dataFetch()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     dataFetch()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [groupName])
 
   return (
