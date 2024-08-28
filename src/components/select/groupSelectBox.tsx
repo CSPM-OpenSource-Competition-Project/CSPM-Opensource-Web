@@ -25,8 +25,6 @@ export default function SelectGroupBox() {
     handleIAMChange(value === 'none' ? '' : value)
   }
 
-
-
   const selectGroupName = async () => {
     try {
       const [statusCode, data] = await apiFetch('/resource/scangroup', {
@@ -55,19 +53,22 @@ export default function SelectGroupBox() {
   }, [, fetchTrigger])
 
   return (
-    <Select onValueChange={handleIAMChange}>
-      <SelectTrigger className='w-[400px] border border-[#B0B3B8]'>
-        <SelectValue placeholder='Gorup 선택' />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          {groupOptions.map((group) => (
-            <SelectItem key={group} value={group}>
-              {group}
-            </SelectItem>
-          ))}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+    <div className='h-10 w-[60%] items-center border-2 bg-white text-black'>
+      <Select onValueChange={handleIAMChange}>
+        <SelectTrigger>
+          <SelectValue placeholder='Group 선택' />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectItem value='none'>Group 선택해</SelectItem>
+            {groupOptions.map((group) => (
+              <SelectItem id={group} key={group} value={group}>
+                {group}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    </div>
   )
 }
