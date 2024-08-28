@@ -58,11 +58,7 @@ export default function IamInputComponents() {
 
     const enAccessKey = encrypt(inputAccessKey)
     const enSecreetKey = encrypt(inputSecretKey)
-
-    console.log('Encrypted Access Key:', enAccessKey)
-    console.log('Encrypted Secret Key:', enSecreetKey)
-    console.log('Region:', inputRegion)
-    console.log('Nick Name:', inputNickName)
+    const enRigion = encrypt(inputRegion)
 
     try {
       const [statusCode, data] = await apiFetch('/api/iamsettings/add', {
@@ -73,7 +69,7 @@ export default function IamInputComponents() {
         body: JSON.stringify({
           accessKey: enAccessKey, // 키 이름을 CamelCase로 수정
           secretKey: enSecreetKey, // 키 이름을 CamelCase로 수정
-          region: inputRegion,
+          region: enRigion,
           nickName: inputNickName,
         }),
       })
