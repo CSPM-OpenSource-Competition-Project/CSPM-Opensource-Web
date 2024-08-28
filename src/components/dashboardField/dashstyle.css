@@ -1,0 +1,12 @@
+.gridcontainer {
+  display: flex; /* flexbox 사용 */
+  justify-content: space-between; /* 요소 간의 간격을 균등하게 분배 */
+  padding-left: 5px; /* px-3의 1px = 0.25rem, 3px = 12px */
+  padding-right: 5px; /* px-3의 1px = 0.25rem, 3px = 12px */
+  align-items: center; /* 세로 방향 중앙 정렬 */
+}
+
+.gateway-label {
+  display: block; /* 블록 요소로 설정하여 줄 바꿈을 강제 */
+  white-space: pre-wrap; /* 줄 바꿈을 허용 */
+}
