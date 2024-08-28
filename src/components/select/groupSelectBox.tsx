@@ -57,7 +57,7 @@ export default function SelectGroupBox() {
     <div className='h-10 w-[60%] items-center border-2 bg-white text-black'>
       <Select value={groupSelect} onValueChange={handlegroupChange}>
         <SelectTrigger>
-          <SelectValue placeholder='IAM 선택' />
+          <SelectValue placeholder='Group 선택' />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>

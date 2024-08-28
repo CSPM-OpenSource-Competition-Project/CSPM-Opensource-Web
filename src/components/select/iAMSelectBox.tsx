@@ -22,7 +22,7 @@ export default function SelectIAMBox() {
 
   const selectIamName = async () => {
     try {
-      const [statusCode, data] = await apiFetch('/resource/iam', {
+      const [statusCode, data] = await apiFetch('/resource/iam-scanGroup', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
