@@ -6,14 +6,11 @@ import UpdatePassowrdComponents from '@/components/iamSettingField/UpdatePasswor
 
 export default function Iamsetting() {
   return (
-    <main className='bg-white'>
-      <div className='ml-10 mt-10 bg-white'>
-        <IamInputComponents />
+    <main className='flex h-full w-full gap-4'>
+      <div className='flex h-full w-[50%] flex-col gap-4'>
+        <IamInputComponents /> <IamDelete />
       </div>
-      <div className='ml-10 mt-10 bg-white'>
-        <IamDelete />
-      </div>
-      <div className='ml-10 mt-10 bg-white'>
+      <div className='h-full w-[50%]'>
         <UpdatePassowrdComponents />
       </div>
     </main>
