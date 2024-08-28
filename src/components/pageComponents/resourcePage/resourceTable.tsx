@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import Pagination from '@/components/pagination'
 import TableHead from '@/components/pageComponents/resourcePage/table/resourceTableHead'
 import { usePagination } from '@/stores/paginationStore'
-import StartScanButton from '@/components/button/startScanButton'
 import ResourceTableRow from '@/components/pageComponents/resourcePage/table/resourceTableRow'
 
 // 스캔 시간, AccountID, 리소스, 리소스ID, Service 리스트 조회
@@ -17,7 +16,6 @@ interface Props {
 }
 export default function TableComponent() {
   const [data, setData] = useState<Props[]>([]) // 목록에 가져올 데이터
-  StartScanButton(setData)
   const [newSelect, setNewSelect] = useState(true)
 
   // 현재 페이지, 페이지당 표시할 아이템 수, 데이터의 총 길이,
