@@ -54,8 +54,8 @@ export default function ComplianceGraph() {
         { x: 'helicopter', y: 157 },
         { x: 'boat', y: 15 },
         { x: 'train', y: 20 },
-        { x: 'subway', y: 162 },
-        { x: 'bus', y: 85 },
+        // { x: 'subway', y: 162 },
+        // { x: 'bus', y: 85 },
         { x: 'car', y: 140 },
         { x: 'moto', y: 5 },
         { x: 'bicycle', y: 4 },
@@ -72,8 +72,8 @@ export default function ComplianceGraph() {
         { x: 'helicopter', y: 138 },
         { x: 'boat', y: 145 },
         { x: 'train', y: 55 },
-        { x: 'subway', y: 47 },
-        { x: 'bus', y: 58 },
+        // { x: 'subway', y: 47 },
+        // { x: 'bus', y: 58 },
         { x: 'car', y: 60 },
         { x: 'moto', y: 253 },
         { x: 'bicycle', y: 268 },
@@ -90,8 +90,8 @@ export default function ComplianceGraph() {
         { x: 'helicopter', y: 90 },
         { x: 'boat', y: 283 },
         { x: 'train', y: 34 },
-        { x: 'subway', y: 255 },
-        { x: 'bus', y: 189 },
+        // { x: 'subway', y: 255 },
+        // { x: 'bus', y: 189 },
         { x: 'car', y: 18 },
         { x: 'moto', y: 99 },
         { x: 'bicycle', y: 300 },
@@ -121,10 +121,10 @@ export default function ComplianceGraph() {
           </select>
         </div>
       </div>
-      <div className='h-full w-full'>
+      <div className='h-[85%] w-full'>
         <ResponsiveLine
           data={data}
-          margin={{ top: 50, right: 110, bottom: 70, left: 60 }}
+          margin={{ top: 50, right: 110, bottom: 20, left: 60 }}
           xScale={{ type: 'point' }}
           yScale={{
             type: 'linear',
