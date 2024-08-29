@@ -17,7 +17,7 @@ interface Props {
 
 type SetData = (data: Props[]) => void
 
-export default function StartScanButton(setData: SetData) {
+export default function StartScanButton() {
   const { setIAMFilter, setScanGroupFilter } = useFilter() // 스캔 시작 전 필터링. 수정
   const { iAMSelected, groupSelected, resourceSelected, serviceSelected } = useSelectType()
   const [dataResult, setDataResult] = useState<Props[]>([])
@@ -50,13 +50,11 @@ export default function StartScanButton(setData: SetData) {
 
       if (statusCode === 200) {
         // const data = await response.json()
-        setData(data)
         setDataResult(data)
         console.log('200 OK : ', data)
       }
     } catch (error) {
       console.error('ERROR : api 연결이 안됩니다.', error)
-      setData([])
       setIAMFilter([])
       setScanGroupFilter([])
     }
