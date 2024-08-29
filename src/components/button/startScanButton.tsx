@@ -15,8 +15,6 @@ interface Props {
   service: string
 }
 
-type SetData = (data: Props[]) => void
-
 export default function StartScanButton() {
   const { setIAMFilter, setScanGroupFilter } = useFilter() // 스캔 시작 전 필터링. 수정
   const { iAMSelected, groupSelected, resourceSelected, serviceSelected } = useSelectType()
@@ -31,8 +29,8 @@ export default function StartScanButton() {
   const fetchList = {
     iam: iAMSelected,
     group: groupSelected,
-    // resource: resourceSelected,
-    // service: serviceSelected,
+    pageIndex: 1,
+    pageSize: 14,
   }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
